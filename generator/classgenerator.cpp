@@ -1230,7 +1230,8 @@ static void writePrototypeCall(QTextStream &s, const AbstractMetaClass *meta_cla
       << "        return context->throwError(QScriptContext::TypeError," << endl
       << "            QString::fromLatin1(\"" << meta_class->name()
       << ".%0(): this object is not a " << meta_class->name() << "\")" << endl
-      << "            .arg(qtscript_" << meta_class->name() << "_function_names[_id+1]));" << endl
+      << "            .arg(qtscript_" << meta_class->name()
+      << "_function_names[_id+" << prototypeFunctionsOffset <<"]));" << endl
       << "    }" << endl << endl;
 
     s << "    switch (_id) {" << endl;
