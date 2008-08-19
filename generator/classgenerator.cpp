@@ -768,7 +768,10 @@ static void writeEnumClass(QTextStream &stream, const AbstractMetaClass *meta_cl
                    << "::" << values.at(uniqueIndexes.first())->name() << ")"
                    << " && (value <= " << meta_class->qualifiedCppName()
                    << "::" << values.at(uniqueIndexes.last())->name() << "))" << endl
-                   << "        return qtscript_" << qtScriptEnumName << "_keys[static_cast<int>(value)];" << endl;
+                   << "        return qtscript_" << qtScriptEnumName
+                   << "_keys[static_cast<int>(value)-static_cast<int>("
+                   << meta_class->qualifiedCppName() << "::"
+                   << values.at(uniqueIndexes.first())->name() << ")];" << endl;
         } else {
             stream << "    for (int i = 0; i < " << uniqueIndexes.size() << "; ++i) {" << endl
                    << "        if (qtscript_" << qtScriptEnumName << "_values[i] == value)" << endl
