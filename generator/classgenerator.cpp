@@ -240,6 +240,8 @@ static void writeArgumentTypeTests(QTextStream &stream, const AbstractMetaFuncti
         QString scriptArg = QString::fromLatin1("context->argument(%0)").arg(i);
         if (argType && isSequenceType(argType)) {
             stream << scriptArg << ".isArray()";
+        } else if (typeName == "QVariant") {
+            stream << "true";
         } else {
             QString tester = builtinTypeTesterFunction(typeName);
             if (!tester.isEmpty()) {
