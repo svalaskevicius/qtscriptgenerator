@@ -1349,7 +1349,8 @@ static void writeHelperFunctions(QTextStream &stream, const AbstractMetaClass *m
            << "    QStringList fullSignatures;" << endl
            << "    for (int i = 0; i < lines.size(); ++i)" << endl
            << "        fullSignatures.append(QString::fromLatin1(\"%0(%1)\").arg(functionName).arg(lines.at(i)));" << endl
-           << "    return context->throwError(QString::fromLatin1(\"QFile::%0(): could not find a function match; candidates are:\\n%1\")" << endl
+           << "    return context->throwError(QString::fromLatin1(\"" << meta_class->name()
+           << "::%0(): could not find a function match; candidates are:\\n%1\")" << endl
            << "        .arg(functionName).arg(fullSignatures.join(QLatin1String(\"\\n\"))));" << endl
            << "}" << endl << endl;
 }
