@@ -28,6 +28,8 @@
 
 #include <reporthandler.h>
 
+#include <memory>
+
 #include <QtXml>
 
 QString strings_Object = QLatin1String("Object");
@@ -425,7 +427,7 @@ bool Handler::startElement(const QString &, const QString &n,
         return importFileElement(atts);
     }
 
-    StackElement *element = new StackElement(current);
+    std::auto_ptr<StackElement> element(new StackElement(current));
 
     if (!tagNames.contains(tagName)) {
         m_error = QString("Unknown tag name: '%1'").arg(tagName);
@@ -1388,7 +1390,7 @@ bool Handler::startElement(const QString &, const QString &n,
         };
     }
 
-    current = element;
+    current = element.release();
     return true;
 }
 
