@@ -557,4 +557,7 @@
       </modify-function>
   </value-type>
 
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: Rejected enum has no alternative...: QPalette::NColorRoles" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: Cannot find enum constant for value 'DragMove' in 'QDragMoveEvent' or any of its super classes" />
+
 </typesystem>

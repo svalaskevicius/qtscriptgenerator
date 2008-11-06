@@ -800,7 +800,7 @@ void AbstractMetaBuilder::figureOutEnumValuesForClass(AbstractMetaClass *meta_cl
                 AbstractMetaEnumValue *used = entries.value(reject->value());
                 if (!used) {
                     ReportHandler::warning(
-                        QString::fromLatin1("Rejected enum has no alternative...: %1::%2\n")
+                        QString::fromLatin1("Rejected enum has no alternative...: %1::%2")
                         .arg(meta_class->name())
                         .arg(reject->name()));
                     continue;
