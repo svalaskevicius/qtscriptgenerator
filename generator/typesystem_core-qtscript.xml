@@ -59,11 +59,7 @@
   <rejection class="QAbstractFileEngine"/>
   <rejection class="QAbstractFileEngineHandler"/>
   <rejection class="QAbstractFileEngineIterator"/>
-  <rejection class="QAbstractItemModel"/>
-  <rejection class="QAbstractListModel"/>
-  <rejection class="QPersistentModelIndex"/>
   <rejection class="QFSFileEngine"/>
-  <rejection class="QMimeData"/>
   <rejection class="QSystemLocale"/>
 
   <rejection class="QFutureWatcherBase"/>
@@ -1486,6 +1482,9 @@
   <suppress-warning text="WARNING(MetaJavaBuilder) :: missing required class for enums: QRegExp" />
   <suppress-warning text="WARNING(MetaJavaBuilder) :: enum 'QtValidLicenseForScriptToolsModule' does not have a type entry or is not an enum" />
   <suppress-warning text="WARNING(MetaJavaBuilder) :: Rejected enum has no alternative...: QDataStream::Qt_4_5" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: unhandled enum value: Qt::MatchFlags(Qt::MatchStartsWith in Qt::MatchFlag" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: unhandled enum value: Qt::MatchWrap) in Qt::MatchFlag" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: unmatched enum Qt::MatchFlags(Qt::MatchStartsWith|Qt::MatchWrap) when parsing default value of 'match' in class 'QAbstractItemModel'" />
 
   <!-- some catch-all warning suppressions -->
   <suppress-warning text="WARNING(MetaJavaBuilder) :: unsupported default value 'QLatin1String(defaultConnection)' of argument in function '*', class '*'"/>
