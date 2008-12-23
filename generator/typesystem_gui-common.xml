@@ -914,16 +914,6 @@
         <include file-name="QStringList" location="global"/>
         <include file-name="QMatrix" location="global"/>
     </extra-includes>
-    <modify-function signature="save(const QString &amp;, const char *, int) const">
-        <access modifier="private"/>
-        <rename to="private_save"/>
-        <modify-argument index="2">
-            <remove-default-expression/>
-        </modify-argument>
-        <modify-argument index="3">
-            <remove-default-expression/>
-        </modify-argument>        
-    </modify-function>
     
     <modify-function signature="QImage(uchar*,int,int,QImage::Format)">
         <access modifier="private"/>
