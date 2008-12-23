@@ -753,8 +753,10 @@ void AbstractMetaBuilder::figureOutEnumValuesForClass(AbstractMetaClass *meta_cl
 
     AbstractMetaEnumList enums = meta_class->enums();
     foreach (AbstractMetaEnum *e, enums) {
-        if (!e)
+        if (!e) {
             ReportHandler::warning("bad enum in class " + meta_class->name());
+            continue;
+        }
         AbstractMetaEnumValueList lst = e->values();
         int value = 0;
         for (int i=0; i<lst.size(); ++i) {
@@ -1683,7 +1685,7 @@ AbstractMetaType *AbstractMetaBuilder::translateType(const TypeInfo &_typei, boo
             newInfo.setVolatile(typei.isVolatile());
 
             AbstractMetaType *elementType = translateType(newInfo, ok);
-            if (!ok)
+            if (!(*ok))
                 return 0;
 
             for (int i=typeInfo.arrays.size()-1; i>=0; --i) {
@@ -1946,7 +1948,7 @@ QString AbstractMetaBuilder::translateDefaultValue(ArgumentModelItem item, Abstr
         return replaced_expression;
 
     QString expr = item->defaultValueExpression();
-    if (type->isPrimitive()) {
+    if (type != 0 && type->isPrimitive()) {
         if (type->name() == "boolean") {
             if (expr == "false" || expr=="true") {
                 return expr;
@@ -1983,7 +1985,7 @@ QString AbstractMetaBuilder::translateDefaultValue(ArgumentModelItem item, Abstr
             TypeEntry *typeEntry = TypeDatabase::instance()->findType(expr.left(expr.indexOf("::")));
             if (typeEntry)
                 return typeEntry->qualifiedTargetLangName() + "." + expr.right(expr.length() - expr.indexOf("::") - 2);
-        } else if (expr.endsWith(")") && type->isValue()) {
+        } else if (expr.endsWith(")") && type != 0 && type->isValue()) {
             int pos = expr.indexOf("(");
 
             TypeEntry *typeEntry = TypeDatabase::instance()->findType(expr.left(pos));
@@ -1993,7 +1995,7 @@ QString AbstractMetaBuilder::translateDefaultValue(ArgumentModelItem item, Abstr
                 return expr;
         } else if (expr == "0") {
             return "null";
-        } else if (type->isObject() || type->isValue() || expr.contains("::")) { // like Qt::black passed to a QColor
+        } else if (type != 0 && (type->isObject() || type->isValue() || expr.contains("::"))) { // like Qt::black passed to a QColor
             TypeEntry *typeEntry = TypeDatabase::instance()->findType(expr.left(expr.indexOf("::")));
 
             expr = expr.right(expr.length() - expr.indexOf("::") - 2);
