@@ -4373,13 +4373,6 @@
     <modify-field name="state" read="false" write="false"/>
   </object-type>
   
-  <object-type name="QAbstractTableModel">
-    <extra-includes>
-        <include file-name="QStringList" location="global"/>
-        <include file-name="QSize" location="global"/>
-    </extra-includes>  
-  </object-type>
-  
   <object-type name="QGuiSignalMapper"/>  
       
   <object-type name="QComboBox">

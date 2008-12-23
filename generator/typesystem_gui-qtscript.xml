@@ -24,7 +24,6 @@
 
   <!-- ### these don't compile -->
   <rejection class="QAbstractProxyModel"/>
-  <rejection class="QAbstractTableModel"/> <!-- ### why is this class generated for Gui? -->
   <rejection class="QSortFilterProxyModel"/>
   <rejection class="QDirModel"/>
   <rejection class="QDrag"/>
