@@ -1633,9 +1633,9 @@ AbstractMetaType *AbstractMetaBuilder::translateType(const TypeInfo &_typei, boo
     //    type system
     TypeInfo typei;
     if (resolveType) {
-        bool ok;
-        AbstractMetaType *t = translateType(_typei, &ok, false, resolveScope);
-        if (t != 0 && ok)
+        bool isok;
+        AbstractMetaType *t = translateType(_typei, &isok, false, resolveScope);
+        if (t != 0 && isok)
             return t;
     }
 
@@ -1690,10 +1690,10 @@ AbstractMetaType *AbstractMetaBuilder::translateType(const TypeInfo &_typei, boo
 
             for (int i=typeInfo.arrays.size()-1; i>=0; --i) {
                 QString s = typeInfo.arrays.at(i);
-                bool ok;
+                bool isok;
 
-                int elems = s.toInt(&ok);
-                if (!ok)
+                int elems = s.toInt(&isok);
+                if (!isok)
                     return 0;
 
                 AbstractMetaType *arrayType = createMetaType();
@@ -1764,10 +1764,10 @@ AbstractMetaType *AbstractMetaBuilder::translateType(const TypeInfo &_typei, boo
         while (!contexts.isEmpty() && type == 0) {
             //type = TypeDatabase::instance()->findType(contexts.at(0) + "::" + qualified_name);
 
-            bool ok;
+            bool isok;
             info.setQualifiedName(QStringList() << contexts.at(0) << qualified_name);
-            AbstractMetaType *t = translateType(info, &ok, true, false);
-            if (t != 0 && ok)
+            AbstractMetaType *t = translateType(info, &isok, true, false);
+            if (t != 0 && isok)
                 return t;
 
             ClassModelItem item = m_dom->findClass(contexts.at(0));
