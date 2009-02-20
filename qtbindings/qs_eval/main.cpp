@@ -138,21 +138,45 @@ int main(int argc, char *argv[])
     app->setLibraryPaths(paths);
 
     QScriptEngine *eng = new QScriptEngine();
+
+    QStringList extensions;
+    extensions << "qt.core"
+               << "qt.gui"
+               << "qt.xml"
+               << "qt.svg"
+               << "qt.network"
+               << "qt.sql"
+               << "qt.opengl"
+               << "qt.webkit"
+               << "qt.xmlpatterns"
+               << "qt.uitools";
+    QStringList failExtensions;
+    foreach (const QString &ext, extensions) {
+        QScriptValue ret = eng->importExtension(ext);
+        if (ret.isError())
+            failExtensions.append(ext);
+    }
+    if (!failExtensions.isEmpty()) {
+        if (failExtensions.size() == extensions.size()) {
+            qWarning("Failed to import Qt bindings!\n"
+                     "Plugins directory searched: %s/script\n"
+                     "Make sure that the bindings have been built, "
+                     "and that this executable and the plugins are "
+                     "using compatible Qt libraries.", qPrintable(dir.absolutePath()));
+        } else {
+            qWarning("Failed to import some Qt bindings: %s\n"
+                     "Plugins directory searched: %s/script\n"
+                     "Make sure that the bindings have been built, "
+                     "and that this executable and the plugins are "
+                     "using compatible Qt libraries.",
+                     qPrintable(failExtensions.join(", ")), qPrintable(dir.absolutePath()));
+        }
+    }
+
 #if QT_VERSION >= 0x040500
     QScriptEngineDebugger *dbg = new QScriptEngineDebugger();
     dbg->attachTo(eng);
 #endif
-
-    eng->importExtension("qt.core");
-    eng->importExtension("qt.gui");
-    eng->importExtension("qt.xml");
-    eng->importExtension("qt.svg");
-    eng->importExtension("qt.network");
-    eng->importExtension("qt.sql");
-    eng->importExtension("qt.opengl");
-    eng->importExtension("qt.webkit");
-    eng->importExtension("qt.xmlpatterns");
-    eng->importExtension("qt.uitools");
 
     QScriptValue globalObject = eng->globalObject();
     globalObject.setProperty("qApp", eng->newQObject(app));
