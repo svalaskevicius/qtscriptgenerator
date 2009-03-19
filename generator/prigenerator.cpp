@@ -58,7 +58,7 @@ void PriGenerator::generate()
         foreach (const QString &entry, list) {
             file.stream << "           $$PWD/" << entry << " \\\n";
         }
-        file.stream << "\n\n";
+        file.stream << "           $$PWD/init.cpp\n";
 
         if (file.done())
             ++m_num_generated_written;
