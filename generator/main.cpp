@@ -37,8 +37,8 @@ int main(int argc, char *argv[])
 { 
     GeneratorSet *gs = GeneratorSet::getInstance();
 
-    QString default_file = "qtscript_masterinclude.h";
-    QString default_system = "build_all.txt";
+    QString default_file = ":/trolltech/generator/qtscript_masterinclude.h";
+    QString default_system = ":/trolltech/generator/build_all.txt";
 
     QString fileName;
     QString typesystemFileName;
