@@ -601,6 +601,8 @@
     <reject-enum-value name="WA_MacMetalStyle"/>
   </enum-type>
   
+  <enum-type name="Qt::TileRule"/>
+
   <value-type name="QBasicTimer"/>  
   <value-type name="QByteArrayMatcher">
     <modify-function signature="operator=(QByteArrayMatcher)" remove="all"/>
