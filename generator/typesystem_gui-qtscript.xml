@@ -66,6 +66,19 @@
     </extra-includes>
   </object-type>
 
+  <object-type name="QGraphicsScene">
+    <modify-function signature="addWidget(QWidget*,QFlags&lt;Qt::WindowType&gt;)">
+        <modify-argument index="1">
+          <conversion-rule class="native">
+          QScriptValue %out%_orig = %in%;
+          QWidget* %out% = qscriptvalue_cast&lt;QWidget*&gt;(%out%_orig);
+          if (%out% != 0)
+              context->engine()->newQObject(%out%_orig, %out%, QScriptEngine::QtOwnership);
+          </conversion-rule>            
+        </modify-argument>
+    </modify-function>
+  </object-type>
+
   <value-type name="QFontInfo">
     <modify-function signature="QFontInfo(QFontInfo)">
       <modify-argument index="1">

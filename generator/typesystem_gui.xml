@@ -3193,6 +3193,17 @@
             <reference-count action="set" variable-name="__rcFocusItem"/>
         </modify-argument>
     </modify-function>
+  
+    <modify-function signature="addWidget(QWidget*,QFlags&lt;Qt::WindowType&gt;)">
+        <modify-argument index="1">
+          <conversion-rule class="native">
+          QScriptValue %out%_orig = %in%;
+          QWidget* %out% = qscriptvalue_cast&lt;QWidget*&gt;(%out%_orig);
+          if (%out% != 0)
+              context-&gt;engine()-&gt;newQObject(%out%_orig, %out%, QScriptEngine::QtOwnership);
+          </conversion-rule>            
+        </modify-argument>
+    </modify-function>
   </object-type>
 
 
