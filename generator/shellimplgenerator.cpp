@@ -134,8 +134,11 @@ void ShellImplGenerator::write(QTextStream &s, const AbstractMetaClass *meta_cla
                                "QtScriptShell_");
         s << endl << "{" << endl;
         QString scriptFunctionName = fun->name();
-        if (QPropertySpec *read = meta_class->propertySpecForRead(fun->name())) {
-            if (read->name() == fun->name()) {
+        {
+            QPropertySpec *read = 0;
+            for (const AbstractMetaClass *cls = meta_class; !read && cls; cls = cls->baseClass())
+                read = cls->propertySpecForRead(fun->name());
+            if (read && (read->name() == fun->name())) {
                 // use different name to avoid infinite recursion
                 // ### not sure if this is the best solution though...
                 scriptFunctionName.prepend("_qs_");
