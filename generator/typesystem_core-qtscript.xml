@@ -1446,14 +1446,14 @@
 
     </object-type>
 
-  <object-type name="QEasingCurve">
+  <value-type name="QEasingCurve">
     <modify-function signature="QEasingCurve(QEasingCurve)" remove="all" />
     <modify-function signature="operator=(QEasingCurve)" remove="all"/>
     <modify-function signature="operator==(const QEasingCurve &amp;)const" remove="all"/>
     <modify-function signature="operator!=(const QEasingCurve &amp;)const" remove="all"/>
     <modify-function signature="setCustomType(double)" remove="all"/>
     <modify-function signature="customType()const" remove="all"/>
-  </object-type>
+  </value-type>
 
   <object-type name="QPropertyAnimation">
     <modify-function signature="QPropertyAnimation(QObject*,QByteArray,QObject*)">

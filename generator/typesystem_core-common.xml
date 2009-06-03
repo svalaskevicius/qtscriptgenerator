@@ -1184,7 +1184,7 @@
 
   <object-type name="QAbstractAnimation" />
   <object-type name="QAnimationGroup" />
-  <object-type name="QEasingCurve" />
+  <value-type name="QEasingCurve" />
   <object-type name="QParallelAnimationGroup" />
   <object-type name="QPauseAnimation" />
   <object-type name="QPropertyAnimation" />
