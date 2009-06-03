@@ -14,6 +14,8 @@
               %out% = context-&gt;engine()-&gt;nullValue();
           else
               %out% = QScriptValue(context-&gt;engine(), %in%);
+    </template><template name="core.convert_string_arg_to_latin1">
+          QByteArray %out% = %in%.toString().toLatin1();
     </template><template name="core.convert_string_arg_to_char*">
           QByteArray tmp_%out% = %in%.toString().toLatin1();
           const char * %out% = tmp_%out%.constData();
@@ -2511,6 +2513,67 @@
     </object-type>
 
     <value-type name="QModelIndex"/>
+
+  <object-type name="QAbstractAnimation"/>
+  <object-type name="QAnimationGroup"/>
+  <object-type name="QEasingCurve">
+    <modify-function signature="QEasingCurve(QEasingCurve)" remove="all"/>
+    <modify-function signature="operator=(QEasingCurve)" remove="all"/>
+    <modify-function signature="operator==(const QEasingCurve &amp;)const" remove="all"/>
+    <modify-function signature="operator!=(const QEasingCurve &amp;)const" remove="all"/>
+    <modify-function signature="setCustomType(double)" remove="all"/>
+    <modify-function signature="customType()const" remove="all"/>
+  </object-type>
+  <object-type name="QParallelAnimationGroup"/>
+  <object-type name="QPauseAnimation"/>
+  <object-type name="QPropertyAnimation">
+    <modify-function signature="QPropertyAnimation(QObject*,QByteArray,QObject*)">
+      <modify-argument index="2">
+        <replace-type modified-type="QString"/>
+        <conversion-rule class="native">
+          <insert-template name="core.convert_string_arg_to_latin1"/>
+        </conversion-rule>            
+      </modify-argument>
+    </modify-function>
+  </object-type>
+  <object-type name="QSequentialAnimationGroup"/>
+  <object-type name="QVariantAnimation"/>
+  <enum-type name="QAbstractAnimation::DeletionPolicy"/>
+  <enum-type name="QAbstractAnimation::Direction"/>
+  <enum-type name="QAbstractAnimation::State"/>
+  <enum-type name="QEasingCurve::Type"/>
+
+  <object-type name="QAbstractState"/>
+  <object-type name="QAbstractTransition"/>
+  <object-type name="QEventTransition"/>
+  <object-type name="QFinalState"/>
+  <object-type name="QHistoryState"/>
+  <object-type name="QSignalEvent"/>
+  <object-type name="QSignalTransition"/>
+  <object-type name="QState">
+    <modify-function signature="addTransition(QObject*,const char*,QAbstractState*)">
+      <modify-argument index="2">
+        <replace-type modified-type="QString"/>
+        <conversion-rule class="native">
+          <insert-template name="core.convert_string_arg_to_char*"/>
+        </conversion-rule>            
+      </modify-argument>
+    </modify-function>
+    <modify-function signature="assignProperty(QObject*,const char*,QVariant)">
+      <modify-argument index="2">
+        <replace-type modified-type="QString"/>
+        <conversion-rule class="native">
+          <insert-template name="core.convert_string_arg_to_char*"/>
+        </conversion-rule>            
+      </modify-argument>
+    </modify-function>
+  </object-type>
+  <object-type name="QStateMachine"/>
+  <object-type name="QWrappedEvent"/>
+  <enum-type name="QHistoryState::HistoryType"/>
+  <enum-type name="QState::ChildMode"/>
+  <enum-type name="QStateMachine::Error"/>
+  <enum-type name="QStateMachine::RestorePolicy"/>
 
   <suppress-warning text="WARNING(MetaJavaBuilder) :: skipping * unmatched *type 'std::*'"/>
   <suppress-warning text="WARNING(MetaJavaBuilder) :: skipping * unmatched *type '*Private\*'"/>

@@ -1180,6 +1180,34 @@
 
     <value-type name="QModelIndex"/>
 
+  <object-type name="QAbstractAnimation" />
+  <object-type name="QAnimationGroup" />
+  <object-type name="QEasingCurve" />
+  <object-type name="QParallelAnimationGroup" />
+  <object-type name="QPauseAnimation" />
+  <object-type name="QPropertyAnimation" />
+  <object-type name="QSequentialAnimationGroup" />
+  <object-type name="QVariantAnimation" />
+  <enum-type name="QAbstractAnimation::DeletionPolicy" />
+  <enum-type name="QAbstractAnimation::Direction" />
+  <enum-type name="QAbstractAnimation::State" />
+  <enum-type name="QEasingCurve::Type" />
+
+  <object-type name="QAbstractState" />
+  <object-type name="QAbstractTransition" />
+  <object-type name="QEventTransition" />
+  <object-type name="QFinalState" />
+  <object-type name="QHistoryState" />
+  <object-type name="QSignalEvent" />
+  <object-type name="QSignalTransition" />
+  <object-type name="QState" />
+  <object-type name="QStateMachine" />
+  <object-type name="QWrappedEvent" />
+  <enum-type name="QHistoryState::HistoryType" />
+  <enum-type name="QState::ChildMode" />
+  <enum-type name="QStateMachine::Error" />
+  <enum-type name="QStateMachine::RestorePolicy" />
+
   <suppress-warning text="WARNING(MetaJavaBuilder) :: skipping * unmatched *type 'std::*'"/>
   <suppress-warning text="WARNING(MetaJavaBuilder) :: skipping * unmatched *type '*Private\*'"/>
   <suppress-warning text="WARNING(MetaJavaBuilder) :: skipping * unmatched *type '*Private&amp;'"/>

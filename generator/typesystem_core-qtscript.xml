@@ -22,6 +22,10 @@
               %out% = QScriptValue(context->engine(), %in%);
     </template>
 
+    <template name="core.convert_string_arg_to_latin1">
+          QByteArray %out% = %in%.toString().toLatin1();
+    </template>
+
     <template name="core.convert_string_arg_to_char*">
           QByteArray tmp_%out% = %in%.toString().toLatin1();
           const char * %out% = tmp_%out%.constData();
@@ -1441,6 +1445,45 @@
         </modify-function>
 
     </object-type>
+
+  <object-type name="QEasingCurve">
+    <modify-function signature="QEasingCurve(QEasingCurve)" remove="all" />
+    <modify-function signature="operator=(QEasingCurve)" remove="all"/>
+    <modify-function signature="operator==(const QEasingCurve &amp;)const" remove="all"/>
+    <modify-function signature="operator!=(const QEasingCurve &amp;)const" remove="all"/>
+    <modify-function signature="setCustomType(double)" remove="all"/>
+    <modify-function signature="customType()const" remove="all"/>
+  </object-type>
+
+  <object-type name="QPropertyAnimation">
+    <modify-function signature="QPropertyAnimation(QObject*,QByteArray,QObject*)">
+      <modify-argument index="2">
+        <replace-type modified-type="QString"/>
+        <conversion-rule class="native">
+          <insert-template name="core.convert_string_arg_to_latin1"/>
+        </conversion-rule>            
+      </modify-argument>
+    </modify-function>
+  </object-type>
+
+  <object-type name="QState">
+    <modify-function signature="addTransition(QObject*,const char*,QAbstractState*)">
+      <modify-argument index="2">
+        <replace-type modified-type="QString"/>
+        <conversion-rule class="native">
+          <insert-template name="core.convert_string_arg_to_char*"/>
+        </conversion-rule>            
+      </modify-argument>
+    </modify-function>
+    <modify-function signature="assignProperty(QObject*,const char*,QVariant)">
+      <modify-argument index="2">
+        <replace-type modified-type="QString"/>
+        <conversion-rule class="native">
+          <insert-template name="core.convert_string_arg_to_char*"/>
+        </conversion-rule>            
+      </modify-argument>
+    </modify-function>
+  </object-type>
 
     <primitive-type name="bool"/>    
     <primitive-type name="double"/>

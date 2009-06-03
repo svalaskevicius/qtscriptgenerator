@@ -4930,6 +4930,9 @@
   <object-type name="QPictureFormatPlugin" />
   <object-type name="QStylePlugin" />
      
+  <object-type name="QKeyEventTransition" />
+  <object-type name="QMouseEventTransition" />
+
   <suppress-warning text="WARNING(MetaJavaBuilder) :: skipping function 'QPixmap::QPixmap', unmatched parameter type 'QPixmapData*'" />
   <suppress-warning text="WARNING(MetaJavaBuilder) :: skipping * unmatched *type '*Private&amp;'"/>
   <suppress-warning text="WARNING(MetaJavaBuilder) :: skipping * unmatched *type '*Private\*'"/>
