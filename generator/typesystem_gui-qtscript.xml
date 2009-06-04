@@ -26,7 +26,6 @@
   <rejection class="QSortFilterProxyModel"/>
   <rejection class="QDirModel"/>
   <rejection class="QFileSystemModel"/>
-  <rejection class="QGraphicsSceneDragDropEvent"/>
   <rejection class="QPrinterInfo"/>
   <rejection class="QProxyModel"/>
   <rejection class="QPrinterInfo"/> <!-- ### constructor takes QPrinter&, must become QPrinter* -->
