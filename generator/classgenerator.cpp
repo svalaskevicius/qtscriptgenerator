@@ -1824,7 +1824,7 @@ void ClassGenerator::write(QTextStream &stream, const AbstractMetaClass *meta_cl
 
     writeInjectedCode(stream, meta_class, CodeSnip::End);
 
-    QString pro_file_name = meta_class->package().replace(".", "_") + "/" + meta_class->package().replace(".", "_") + ".pri";
-    priGenerator->addSource(pro_file_name, fileNameForClass(meta_class));
+    QString packName = meta_class->package().replace(".", "_");
+    priGenerator->addSource(packName, fileNameForClass(meta_class));
     setupGenerator->addClass(meta_class);
 }

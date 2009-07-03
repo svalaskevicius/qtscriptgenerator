@@ -58,7 +58,7 @@ void SetupGenerator::generate()
         packName.replace(".", "_");
 
         {
-            FileOut initFile(m_out_dir + "/generated_cpp/" + packName + "/init.cpp");
+            FileOut initFile(m_out_dir + "/generated_cpp/" + packName + "/" + packName + "_init.cpp");
             QTextStream &s = initFile.stream;
 
             if (FileOut::license)
