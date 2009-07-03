@@ -44,7 +44,8 @@ void PriGenerator::generate()
         if (list.isEmpty())
             continue;
 
-        FileOut file(m_out_dir + "/generated_cpp/" + pri.key());
+        QString folder = pri.key();
+        FileOut file(m_out_dir + "/generated_cpp/" + folder + "/" + folder + ".pri");
         file.stream << "HEADERS += \\\n";
         qSort(list.begin(), list.end());
         foreach (const QString &entry, list) {
@@ -58,7 +59,7 @@ void PriGenerator::generate()
         foreach (const QString &entry, list) {
             file.stream << "           $$PWD/" << entry << " \\\n";
         }
-        file.stream << "           $$PWD/init.cpp\n";
+        file.stream << "           $$PWD/" << folder << "_init.cpp\n";
 
         if (file.done())
             ++m_num_generated_written;

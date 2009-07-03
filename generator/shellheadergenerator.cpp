@@ -60,11 +60,11 @@ void ShellHeaderGenerator::write(QTextStream &s, const AbstractMetaClass *meta_c
 
     s << "#include <QtScript/qscriptvalue.h>" << endl << endl;
 
-    QString pro_file_name = meta_class->package().replace(".", "_") + "/" + meta_class->package().replace(".", "_") + ".pri";
+    QString packName = meta_class->package().replace(".", "_");
 
     if (!meta_class->generateShellClass()) {
         s << "#endif" << endl << endl;
-        priGenerator->addHeader(pro_file_name, fileNameForClass(meta_class));
+        priGenerator->addHeader(packName, fileNameForClass(meta_class));
         return ;
     }
 
@@ -105,7 +105,7 @@ void ShellHeaderGenerator::write(QTextStream &s, const AbstractMetaClass *meta_c
     s  << "};" << endl << endl
        << "#endif // " << include_block << endl;
 
-    priGenerator->addHeader(pro_file_name, fileNameForClass(meta_class));
+    priGenerator->addHeader(packName, fileNameForClass(meta_class));
 }
 
 void ShellHeaderGenerator::writeInjectedCode(QTextStream &s, const AbstractMetaClass *meta_class)
