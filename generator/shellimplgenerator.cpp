@@ -52,9 +52,9 @@ void ShellImplGenerator::write(QTextStream &s, const AbstractMetaClass *meta_cla
     if (FileOut::license)
         writeQtScriptQtBindingsLicense(s);
 
-    QString pro_file_name = meta_class->package().replace(".", "_") + "/" + meta_class->package().replace(".", "_") + ".pri";
+    QString packName = meta_class->package().replace(".", "_");
 
-    priGenerator->addSource(pro_file_name, fileNameForClass(meta_class));
+    priGenerator->addSource(packName, fileNameForClass(meta_class));
 
     s << "#include \"qtscriptshell_" << meta_class->name() << ".h\"" << endl << endl;
 
