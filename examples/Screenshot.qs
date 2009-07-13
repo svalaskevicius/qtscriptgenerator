@@ -111,7 +111,7 @@ Screenshot.prototype.createOptionsGroupBox = function() {
     this.delaySpinBox = new QSpinBox();
     this.delaySpinBox.suffix = tr(" s");
     this.delaySpinBox.maximum = 60;
-    this.delaySpinBox.valueChanged.connect(this, this.updateCheckBox);
+    this.delaySpinBox['valueChanged(int)'].connect(this, this.updateCheckBox);
     
     this.delaySpinBoxLabel = new QLabel(tr("Screenshot Delay:"));
     
