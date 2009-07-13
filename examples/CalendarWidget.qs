@@ -226,13 +226,13 @@ CalendarWidget.prototype.createGeneralOptionsGroupBox = function() {
     this.verticalHeaderLabel = new QLabel(tr("&Vertical header:"));
     this.verticalHeaderLabel.setBuddy(this.verticalHeaderCombo);
     
-    this.localeCombo.currentIndexChanged.connect(this, this.localeChanged);
-    this.firstDayCombo.currentIndexChanged.connect(this, this.firstDayChanged);
-    this.selectionModeCombo.currentIndexChanged.connect(this, this.selectionModeChanged);
+    this.localeCombo['currentIndexChanged(int)'].connect(this, this.localeChanged);
+    this.firstDayCombo['currentIndexChanged(int)'].connect(this, this.firstDayChanged);
+    this.selectionModeCombo['currentIndexChanged(int)'].connect(this, this.selectionModeChanged);
     this.gridCheckBox.toggled.connect(this, this.calendar.setGridVisible);        
     this.navigationCheckBox.toggled.connect(this, this.calendar.setNavigationBarVisible);
-    this.horizontalHeaderCombo.currentIndexChanged.connect(this, this.horizontalHeaderChanged);
-    this.verticalHeaderCombo.currentIndexChanged.connect(this, "verticalHeaderChanged");
+    this.horizontalHeaderCombo['currentIndexChanged(int)'].connect(this, this.horizontalHeaderChanged);
+    this.verticalHeaderCombo['currentIndexChanged(int)'].connect(this, "verticalHeaderChanged");
     
     var checkBoxLayout = new QHBoxLayout();
     checkBoxLayout.addWidget(this.gridCheckBox, 0, Qt.AlignmentFlag(1));  //FIXME
@@ -334,9 +334,9 @@ CalendarWidget.prototype.createTextFormatsGroupBox = function() {
     
     this.mayFirstCheckBox = new QCheckBox(tr("May &1 in red"));
     
-    this.weekdayColorCombo.currentIndexChanged.connect(this, this.weekdayFormatChanged);
-    this.weekendColorCombo.currentIndexChanged.connect(this, this.weekendFormatChanged);
-    this.headerTextFormatCombo.currentIndexChanged.connect(this, this.reformatHeaders);
+    this.weekdayColorCombo['currentIndexChanged(int)'].connect(this, this.weekdayFormatChanged);
+    this.weekendColorCombo['currentIndexChanged(int)'].connect(this, this.weekendFormatChanged);
+    this.headerTextFormatCombo['currentIndexChanged(int)'].connect(this, this.reformatHeaders);
     this.firstFridayCheckBox.toggled.connect(this, this.reformatCalendarPage);
     this.mayFirstCheckBox.toggled.connect(this, this.reformatCalendarPage);
     
