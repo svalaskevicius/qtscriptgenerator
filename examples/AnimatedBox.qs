@@ -12,11 +12,11 @@ box = scene.addWidget(createBox());
 
 var machine = new QStateMachine();
 
-var s1 = new QState(machine.rootState);
+var s1 = new QState(machine);
 s1.assignProperty(box, "geometry", new QRect(-50, 50, 100, 100));
 s1.assignProperty(box, "opacity", 1.0);
 
-var s2 = new QState(machine.rootState);
+var s2 = new QState(machine);
 s2.assignProperty(box, "geometry", new QRect(250, 200, 200, 150));
 s2.assignProperty(box, "opacity", 0.2);
 
