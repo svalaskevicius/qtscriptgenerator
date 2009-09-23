@@ -1549,6 +1549,24 @@ void ClassGenerator::write(QTextStream &stream, const AbstractMetaClass *meta_cl
     }
     stream << "};" << endl << endl;
 
+    // write table of function lengths
+    stream << "static const int qtscript_" << meta_class->name() << "_function_lengths[] = {" << endl;
+    stream << "    " << maxFunctionLength(ctors) << endl;
+    {
+        QMap<QString, AbstractMetaFunctionList>::const_iterator it;
+        stream << "    // static" << endl;
+        for (it = nameToStaticFunctions.constBegin(); it != nameToStaticFunctions.constEnd(); ++it) {
+            stream << "    , " << maxFunctionLength(it.value()) << endl;
+        }
+        stream << "    // prototype" << endl;
+        for (it = nameToPrototypeFunctions.constBegin(); it != nameToPrototypeFunctions.constEnd(); ++it) {
+            stream << "    , " << maxFunctionLength(it.value()) << endl;
+        }
+        if (!meta_class->hasDefaultToStringFunction())
+            stream << "    , 0" << endl;
+    }
+    stream << "};" << endl << endl;
+
 #ifndef GENERATOR_NO_PROTECTED_FUNCTIONS
     if (meta_class->hasProtectedFunctions()) {
         // write a friendly class
@@ -1696,24 +1714,6 @@ void ClassGenerator::write(QTextStream &stream, const AbstractMetaClass *meta_cl
            << "_class(QScriptEngine *engine)" << endl;
     stream << "{" << endl;
 
-    // write lengths array
-    stream << "    static const int function_lengths[] = {" << endl;
-    stream << "        " << maxFunctionLength(ctors) << endl;
-    {
-        QMap<QString, AbstractMetaFunctionList>::const_iterator it;
-        stream << "        // static" << endl;
-        for (it = nameToStaticFunctions.constBegin(); it != nameToStaticFunctions.constEnd(); ++it) {
-            stream << "        , " << maxFunctionLength(it.value()) << endl;
-        }
-        stream << "        // prototype" << endl;
-        for (it = nameToPrototypeFunctions.constBegin(); it != nameToPrototypeFunctions.constEnd(); ++it) {
-            stream << "        , " << maxFunctionLength(it.value()) << endl;
-        }
-        if (!meta_class->hasDefaultToStringFunction())
-            stream << "        , 0" << endl;
-    }
-    stream << "    };" << endl;
-
     // setup prototype
     if (!meta_class->isNamespace()) {
         stream << "    engine->setDefaultPrototype(qMetaTypeId<"
@@ -1751,7 +1751,8 @@ void ClassGenerator::write(QTextStream &stream, const AbstractMetaClass *meta_cl
                 ++count;
             stream << "    for (int i = 0; i < " << count << "; ++i) {" << endl
                    << "        QScriptValue fun = engine->newFunction(qtscript_"
-                   << meta_class->name() << "_prototype_call, function_lengths[i+"
+                   << meta_class->name() << "_prototype_call, qtscript_"
+                   << meta_class->name() << "_function_lengths[i+"
                    << prototypeFunctionsOffset << "]);" << endl
                    << "        fun.setData(QScriptValue(engine, uint(0xBABE0000 + i)));" << endl
                    << "        proto.setProperty(QString::fromLatin1(qtscript_"
@@ -1783,7 +1784,7 @@ void ClassGenerator::write(QTextStream &stream, const AbstractMetaClass *meta_cl
 
     // setup constructor
     stream << "    QScriptValue ctor = engine->newFunction(qtscript_" << meta_class->name()
-           << "_static_call, proto, function_lengths[0]);" << endl;
+           << "_static_call, proto, qtscript_" << meta_class->name() << "_function_lengths[0]);" << endl;
     stream << "    ctor.setData(QScriptValue(engine, uint(0xBABE0000 + 0)));" << endl;
     if (!nameToStaticFunctions.isEmpty()) {
         // static functions
@@ -1791,7 +1792,7 @@ void ClassGenerator::write(QTextStream &stream, const AbstractMetaClass *meta_cl
         stream << "    for (int i = 0; i < " << nameToStaticFunctions.size() << "; ++i) {" << endl
                << "        QScriptValue fun = engine->newFunction(qtscript_" << meta_class->name()
                << "_static_call," << endl
-               << "            function_lengths[i+" << staticFunctionsOffset << "]);" << endl
+               << "            qtscript_" << meta_class->name() << "_function_lengths[i+" << staticFunctionsOffset << "]);" << endl
                << "        fun.setData(QScriptValue(engine, uint(0xBABE0000 + i+1)));" << endl
                << "        ctor.setProperty(QString::fromLatin1(qtscript_"
                << meta_class->name() << "_function_names[i+" << staticFunctionsOffset << "])," << endl
