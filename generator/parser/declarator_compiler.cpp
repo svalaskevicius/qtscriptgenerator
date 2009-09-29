@@ -129,6 +129,13 @@ void DeclaratorCompiler::visitParameterDeclaration(ParameterDeclarationAST *node
 
   p.name = decl_cc.id();
   p.type = CompilerUtils::typeDescription(node->type_specifier, node->declarator, _M_binder);
+
+  // ignore case a single void parameter
+  if (_M_parameters.isEmpty() && p.name.isEmpty() && p.type.toString() == "void")
+  {
+    return;
+  }
+
   if (node->expression != 0)
     {
       const Token &start = _M_token_stream->token((int) node->expression->start_token);
