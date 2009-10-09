@@ -727,7 +727,10 @@ static void writeCreateFlagsClassHelper(QTextStream &stream)
 static void writeEnumClass(QTextStream &stream, const AbstractMetaClass *meta_class,
                            const AbstractMetaEnum *enom)
 {
-    QString qualifiedEnumName = meta_class->qualifiedCppName() + "::" + enom->name();
+    QString qualifiedCppNameColons;
+    if (meta_class->name() != "Global")
+        qualifiedCppNameColons = meta_class->qualifiedCppName() + "::";
+    QString qualifiedEnumName = qualifiedCppNameColons + enom->name();
     QString qtScriptEnumName = meta_class->name() + "_" + enom->name();
 
     stream << "//" << endl;
@@ -747,7 +750,7 @@ static void writeEnumClass(QTextStream &stream, const AbstractMetaClass *meta_cl
         stream << "    ";
         if (i > 0)
             stream << ", ";
-        stream << meta_class->qualifiedCppName() << "::" << values.at(uniqueIndexes.at(i))->name() << endl;
+        stream << qualifiedCppNameColons << values.at(uniqueIndexes.at(i))->name() << endl;
     }
     stream << "};" << endl << endl;
     stream << "static const char * const qtscript_" << qtScriptEnumName << "_keys[] = {" << endl;
@@ -772,13 +775,13 @@ static void writeEnumClass(QTextStream &stream, const AbstractMetaClass *meta_cl
         stream << "    return QString::fromLatin1(menum.valueToKey(value));" << endl;
     } else {
         if (contiguous) {
-            stream << "    if ((value >= " << meta_class->qualifiedCppName()
-                   << "::" << values.at(uniqueIndexes.first())->name() << ")"
-                   << " && (value <= " << meta_class->qualifiedCppName()
-                   << "::" << values.at(uniqueIndexes.last())->name() << "))" << endl
+            stream << "    if ((value >= " << qualifiedCppNameColons
+                   << values.at(uniqueIndexes.first())->name() << ")"
+                   << " && (value <= " << qualifiedCppNameColons
+                   << values.at(uniqueIndexes.last())->name() << "))" << endl
                    << "        return qtscript_" << qtScriptEnumName
                    << "_keys[static_cast<int>(value)-static_cast<int>("
-                   << meta_class->qualifiedCppName() << "::"
+                   << qualifiedCppNameColons
                    << values.at(uniqueIndexes.first())->name() << ")];" << endl;
         } else {
             stream << "    for (int i = 0; i < " << uniqueIndexes.size() << "; ++i) {" << endl
@@ -824,10 +827,10 @@ static void writeEnumClass(QTextStream &stream, const AbstractMetaClass *meta_cl
                << qualifiedEnumName << ">(arg));" << endl;
     } else {
         if (contiguous) {
-            stream << "    if ((arg >= " << meta_class->qualifiedCppName()
-                   << "::" << values.at(uniqueIndexes.first())->name() << ")"
-                   << " && (arg <= " << meta_class->qualifiedCppName()
-                   << "::" << values.at(uniqueIndexes.last())->name() << "))" << endl;
+            stream << "    if ((arg >= " << qualifiedCppNameColons
+                   << values.at(uniqueIndexes.first())->name() << ")"
+                   << " && (arg <= " << qualifiedCppNameColons
+                   << values.at(uniqueIndexes.last())->name() << "))" << endl;
             stream << "        return qScriptValueFromValue(engine,  static_cast<"
                    << qualifiedEnumName << ">(arg));" << endl;
         } else {
@@ -899,7 +902,7 @@ static void writeEnumClass(QTextStream &stream, const AbstractMetaClass *meta_cl
     if (!flags)
         return;
 
-    QString qualifiedFlagsName = meta_class->qualifiedCppName() + "::" + flags->targetLangName();
+    QString qualifiedFlagsName = qualifiedCppNameColons + flags->targetLangName();
     QString qtScriptFlagsName = meta_class->name() + "_" + flags->targetLangName();
 
     stream << "//" << endl;
@@ -1116,9 +1119,12 @@ void declareEnumMetaTypes(QTextStream &stream, const AbstractMetaClass *meta_cla
         const AbstractMetaEnum *enom = enums.at(i);
         if (shouldIgnoreEnum(enom))
             continue;
-        maybeDeclareMetaType(stream, QString::fromLatin1("%0::%1")
-                             .arg(meta_class->qualifiedCppName()).arg(enom->name()),
-                             registeredTypeNames);
+        if (meta_class->name() == "Global")
+            maybeDeclareMetaType(stream, enom->name(), registeredTypeNames);
+        else
+            maybeDeclareMetaType(stream, QString::fromLatin1("%0::%1")
+                                 .arg(meta_class->qualifiedCppName()).arg(enom->name()),
+                                 registeredTypeNames);
         FlagsTypeEntry *flags = enom->typeEntry()->flags();
         if (flags) {
             maybeDeclareMetaType(stream, QString::fromLatin1("QFlags<%0::%1>")
@@ -1440,9 +1446,6 @@ static void writeFunctionSignaturesString(QTextStream &s, const AbstractMetaFunc
 */
 void ClassGenerator::write(QTextStream &stream, const AbstractMetaClass *meta_class)
 {
-    if (meta_class->name() == "Global") // ### hmmmmmm
-        return;
-
     if (FileOut::license)
         writeQtScriptQtBindingsLicense(stream);
 
@@ -1485,6 +1488,25 @@ void ClassGenerator::write(QTextStream &stream, const AbstractMetaClass *meta_cl
             else
                 ++it;
         }
+    }
+
+    if (meta_class->isNamespace() || meta_class->name() == "Global") {
+        QMap<QString, Include> includes;
+        foreach (AbstractMetaEnum *enom, enums) {
+            Include include = enom->typeEntry()->include();
+            includes.insert(include.toString(), include);
+        }
+
+        foreach (const Include &i, includes) {
+            writeInclude(stream, i);
+        }
+
+        stream << endl;
+    }
+
+    if (meta_class->name() == "Global") {
+            stream << "class Global {};" << endl;
+            stream << endl;
     }
 
     // find constructors

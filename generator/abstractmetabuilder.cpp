@@ -403,6 +403,10 @@ bool AbstractMetaBuilder::build()
             global->addEnum(meta_enum);
             meta_enum->setEnclosingClass(global);
             meta_enum->typeEntry()->setQualifier(globalName);
+
+            // Global enums should be public despite not having public
+            // identifiers so we'll fix the original attributes here.
+            meta_enum->setOriginalAttributes(meta_enum->attributes());
         }
 
 
@@ -986,6 +990,9 @@ AbstractMetaEnum *AbstractMetaBuilder::traverseEnum(EnumModelItem enum_item, Abs
         else
             m_enum_values[meta_enum_value->name()] = meta_enum_value;
     }
+
+    QFileInfo info(enum_item->fileName());
+    meta_enum->typeEntry()->setInclude(Include(Include::IncludePath, info.fileName()));
 
     m_enums << meta_enum;
 
