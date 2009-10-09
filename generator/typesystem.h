@@ -634,6 +634,9 @@ public:
 
     QString jniName() const;
 
+    Include include() const { return m_include; }
+    void setInclude(const Include &inc) { m_include = inc; }
+
     QString qualifier() const { return m_qualifier; }
     void setQualifier(const QString &q) { m_qualifier = q; }
 
@@ -664,6 +667,7 @@ public:
     void setForceInteger(bool force) { m_force_integer = force; }
 
 private:
+    Include m_include;
     QString m_package_name;
     QString m_qualifier;
     QString m_java_name;
