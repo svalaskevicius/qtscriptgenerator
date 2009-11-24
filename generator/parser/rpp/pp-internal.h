@@ -16,6 +16,7 @@
 #define PP_INTERNAL_H
 
 #include <algorithm>
+#include <stdio.h>
 
 namespace rpp {
 

@@ -15,6 +15,8 @@
 #ifndef PP_ENGINE_BITS_H
 #define PP_ENGINE_BITS_H
 
+#include <stdio.h>
+
 namespace rpp {
 
 inline std::string pp::fix_file_path(std::string const &filename) const
