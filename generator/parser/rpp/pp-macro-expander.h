@@ -15,6 +15,8 @@
 #ifndef PP_MACRO_EXPANDER_H
 #define PP_MACRO_EXPANDER_H
 
+#include <stdio.h>
+
 namespace rpp {
 
 struct pp_frame
