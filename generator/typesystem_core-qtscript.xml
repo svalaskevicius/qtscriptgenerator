@@ -1530,6 +1530,15 @@
   <suppress-warning text="WARNING(MetaJavaBuilder) :: unhandled enum value: Qt::MatchWrap) in Qt::MatchFlag" />
   <suppress-warning text="WARNING(MetaJavaBuilder) :: unmatched enum Qt::MatchFlags(Qt::MatchStartsWith|Qt::MatchWrap) when parsing default value of 'match' in class 'QAbstractItemModel'" />
 
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: Unable to decide type of property: 'Qt::GestureState' in class 'QGesture'" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: enum 'Qt::GestureState' does not have a type entry or is not an enum" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: template baseclass 'QGenericMatrix&lt;qreal&gt;' of 'QMatrix3x3' is not known" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: unhandled enum value: ~0u in Qt::GestureType" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: unmatched enum ~0u" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: unhandled enum value: Qt::GestureFlags() in Qt::GestureFlag" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: unmatched enum Qt::GestureFlags() when parsing default value of 'grabGesture' in class 'QWidget'" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: unmatched enum Qt::GestureFlags() when parsing default value of 'grabGesture' in class 'QGraphicsObject'" />
+
   <!-- some catch-all warning suppressions -->
   <suppress-warning text="WARNING(MetaJavaBuilder) :: unsupported default value 'QLatin1String(defaultConnection)' of argument in function '*', class '*'"/>
   <suppress-warning text="WARNING(MetaJavaBuilder) :: Class '*' has equals operators but no qHash() function" />

@@ -5,4 +5,6 @@
     <rejection class="QGL"/>
     <rejection class="QGLFormat"/>
 
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: Class 'QGLFormat' has equals operators but no qHash() function" />
+
 </typesystem>
