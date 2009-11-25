@@ -77,11 +77,6 @@
     </extra-includes>
   </namespace-type>
 
-  <!-- ### using ECMA Date and RegExp instead for now -->
-    <rejection class="QRegExp"/>
-    <rejection class="QDate"/>
-    <rejection class="QDateTime"/>
-
     <rejection class="QByteArray" function-name="contains"/>
 
   <value-type name="QFileInfo">
@@ -1484,6 +1479,13 @@
       </modify-argument>
     </modify-function>
   </object-type>
+
+  <value-type name="QRegExp">
+    <modify-function signature="cap(int)" remove="all"/>
+    <modify-function signature="capturedTexts()" remove="all"/>
+    <modify-function signature="pos(int)" remove="all"/>
+    <modify-function signature="errorString()" remove="all"/>
+  </value-type>
 
     <primitive-type name="bool"/>    
     <primitive-type name="double"/>
