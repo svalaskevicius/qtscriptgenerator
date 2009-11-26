@@ -24,7 +24,7 @@ There is a simple script interpreter / launcher in path/to/this/project/qtbindin
 that imports all the bindings. You can use it to run the examples found in
 path/to/this/project/examples. E.g., with the examples directory being the working directory:
 
-../qtbindings/qs_eval/qs_eval CollidingMice.qs
+../qtbindings/qs_eval/qs_eval CollidingMice.js
 
 
 See the generated doc/index.html for more information.
