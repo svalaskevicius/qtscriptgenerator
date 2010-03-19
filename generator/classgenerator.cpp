@@ -1191,7 +1191,7 @@ static void writeFunctionForwarding(QTextStream &stream, const AbstractMetaClass
         if (funcs.isEmpty())
             continue;
         stream << "    if (context->argumentCount() == " << i << ") {" << endl;
-        if (funcs.size() == 1) {
+        if (funcs.size() == 1 || i == 0) {
             AbstractMetaFunction *fun = funcs.at(0);
             const int indent = 8;
             // special case for Q{Data,Text}Stream streaming operators
