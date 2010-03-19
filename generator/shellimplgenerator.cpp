@@ -141,8 +141,10 @@ void ShellImplGenerator::write(QTextStream &s, const AbstractMetaClass *meta_cla
 
     // write destructor
     s << "QtScriptShell_" << meta_class->name() << "::"
-      << "~QtScriptShell_" << meta_class->name() << "()"
-      << " {}" << endl << endl;
+      << "~QtScriptShell_" << meta_class->name() << "()";
+    if (!meta_class->destructorException().isEmpty())
+        s << " " << meta_class->destructorException();
+    s << " {}" << endl << endl;
 
     // write member functions
     for (int i = 0; i < functions.size(); ++i) {

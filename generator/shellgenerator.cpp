@@ -212,4 +212,7 @@ void ShellGenerator::writeFunctionSignature(QTextStream &s,
     s << ")";
     if (meta_function->isConstant())
         s << " const";
+
+    if (!meta_function->exception().isEmpty())
+        s << " " << meta_function->exception();
 }
