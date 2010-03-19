@@ -499,7 +499,7 @@ public:
     void setConstant(bool constant) { m_constant = constant; }
 
     QString exception() const { return m_exception; }
-    void setException(QString type) { m_exception = type; }
+    void setException(const QString &exception) { m_exception = exception; }
 
     QString toString() const { return m_name; }
 

@@ -542,7 +542,7 @@ public:
   void setFunctionType(CodeModel::FunctionType functionType);
 
   QString exception() const;
-  void setException(QString);
+  void setException(const QString &exception);
 
   bool isVirtual() const;
   void setVirtual(bool isVirtual);

@@ -665,7 +665,7 @@ QString _FunctionModelItem::exception() const
   return _M_exception;
 }
 
-void _FunctionModelItem::setException(QString exception)
+void _FunctionModelItem::setException(const QString &exception)
 {
   _M_exception = exception;
 }
