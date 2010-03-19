@@ -22,6 +22,10 @@
               %out% = QScriptValue(context->engine(), %in%);
     </template>
 
+    <template name="core.convert_string_arg_to_latin1">
+          QByteArray %out% = %in%.toString().toLatin1();
+    </template>
+
     <template name="core.convert_string_arg_to_char*">
           QByteArray tmp_%out% = %in%.toString().toLatin1();
           const char * %out% = tmp_%out%.constData();
@@ -72,11 +76,6 @@
         <include file-name="qtconcurrentthreadengine.h" location="global"/>
     </extra-includes>
   </namespace-type>
-
-  <!-- ### using ECMA Date and RegExp instead for now -->
-    <rejection class="QRegExp"/>
-    <rejection class="QDate"/>
-    <rejection class="QDateTime"/>
 
     <rejection class="QByteArray" function-name="contains"/>
 
@@ -1442,6 +1441,52 @@
 
     </object-type>
 
+  <value-type name="QEasingCurve">
+    <modify-function signature="QEasingCurve(QEasingCurve)" remove="all" />
+    <modify-function signature="operator=(QEasingCurve)" remove="all"/>
+    <modify-function signature="operator==(const QEasingCurve &amp;)const" remove="all"/>
+    <modify-function signature="operator!=(const QEasingCurve &amp;)const" remove="all"/>
+    <modify-function signature="setCustomType(double)" remove="all"/>
+    <modify-function signature="customType()const" remove="all"/>
+  </value-type>
+
+  <object-type name="QPropertyAnimation">
+    <modify-function signature="QPropertyAnimation(QObject*,QByteArray,QObject*)">
+      <modify-argument index="2">
+        <replace-type modified-type="QString"/>
+        <conversion-rule class="native">
+          <insert-template name="core.convert_string_arg_to_latin1"/>
+        </conversion-rule>            
+      </modify-argument>
+    </modify-function>
+  </object-type>
+
+  <object-type name="QState">
+    <modify-function signature="addTransition(QObject*,const char*,QAbstractState*)">
+      <modify-argument index="2">
+        <replace-type modified-type="QString"/>
+        <conversion-rule class="native">
+          <insert-template name="core.convert_string_arg_to_char*"/>
+        </conversion-rule>            
+      </modify-argument>
+    </modify-function>
+    <modify-function signature="assignProperty(QObject*,const char*,QVariant)">
+      <modify-argument index="2">
+        <replace-type modified-type="QString"/>
+        <conversion-rule class="native">
+          <insert-template name="core.convert_string_arg_to_char*"/>
+        </conversion-rule>            
+      </modify-argument>
+    </modify-function>
+  </object-type>
+
+  <value-type name="QRegExp">
+    <modify-function signature="cap(int)" remove="all"/>
+    <modify-function signature="capturedTexts()" remove="all"/>
+    <modify-function signature="pos(int)" remove="all"/>
+    <modify-function signature="errorString()" remove="all"/>
+  </value-type>
+
     <primitive-type name="bool"/>    
     <primitive-type name="double"/>
     <primitive-type name="qreal"/>
@@ -1486,6 +1531,15 @@
   <suppress-warning text="WARNING(MetaJavaBuilder) :: unhandled enum value: Qt::MatchFlags(Qt::MatchStartsWith in Qt::MatchFlag" />
   <suppress-warning text="WARNING(MetaJavaBuilder) :: unhandled enum value: Qt::MatchWrap) in Qt::MatchFlag" />
   <suppress-warning text="WARNING(MetaJavaBuilder) :: unmatched enum Qt::MatchFlags(Qt::MatchStartsWith|Qt::MatchWrap) when parsing default value of 'match' in class 'QAbstractItemModel'" />
+
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: Unable to decide type of property: 'Qt::GestureState' in class 'QGesture'" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: enum 'Qt::GestureState' does not have a type entry or is not an enum" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: template baseclass 'QGenericMatrix&lt;qreal&gt;' of 'QMatrix3x3' is not known" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: unhandled enum value: ~0u in Qt::GestureType" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: unmatched enum ~0u" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: unhandled enum value: Qt::GestureFlags() in Qt::GestureFlag" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: unmatched enum Qt::GestureFlags() when parsing default value of 'grabGesture' in class 'QWidget'" />
+  <suppress-warning text="WARNING(MetaJavaBuilder) :: unmatched enum Qt::GestureFlags() when parsing default value of 'grabGesture' in class 'QGraphicsObject'" />
 
   <!-- some catch-all warning suppressions -->
   <suppress-warning text="WARNING(MetaJavaBuilder) :: unsupported default value 'QLatin1String(defaultConnection)' of argument in function '*', class '*'"/>

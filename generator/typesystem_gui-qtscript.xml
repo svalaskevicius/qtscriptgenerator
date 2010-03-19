@@ -65,6 +65,19 @@
     </extra-includes>
   </object-type>
 
+  <object-type name="QGraphicsScene">
+    <modify-function signature="addWidget(QWidget*,QFlags&lt;Qt::WindowType&gt;)">
+        <modify-argument index="1">
+          <conversion-rule class="native">
+          QScriptValue %out%_orig = %in%;
+          QWidget* %out% = qscriptvalue_cast&lt;QWidget*&gt;(%out%_orig);
+          if (%out% != 0)
+              context->engine()->newQObject(%out%_orig, %out%, QScriptEngine::QtOwnership);
+          </conversion-rule>            
+        </modify-argument>
+    </modify-function>
+  </object-type>
+
   <value-type name="QFontInfo">
     <modify-function signature="QFontInfo(QFontInfo)">
       <modify-argument index="1">
@@ -339,6 +352,9 @@
     <modify-function signature="sizeHint()const" rename="getSizeHint"/>
     <modify-function signature="minimumSizeHint()const" rename="getMinimumSizeHint"/>
     <modify-function signature="setVisible(bool)" remove="all"/>
+    <modify-function signature="grabGesture(Qt::GestureType type,Qt::GestureFlags)">
+        <modify-argument index="2"> <remove-default-expression/> </modify-argument>
+    </modify-function>
   </object-type>
 
   <!-- FIXME -->
@@ -555,5 +571,6 @@
 
   <suppress-warning text="WARNING(MetaJavaBuilder) :: Rejected enum has no alternative...: QPalette::NColorRoles" />
   <suppress-warning text="WARNING(MetaJavaBuilder) :: Cannot find enum constant for value 'DragMove' in 'QDragMoveEvent' or any of its super classes" />
+  <suppress-warning text="WARNING() :: Unknown attribute for 'modify-function': 'allow-as-slot'" />
 
 </typesystem>

@@ -519,7 +519,12 @@ static void writeFunctionCallAndReturn(QTextStream &stream, const AbstractMetaFu
                     || (meta_class->name() == QLatin1String("QRect"))
                     || (meta_class->name() == QLatin1String("QRectF"))
                     || (meta_class->name() == QLatin1String("QSize"))
-                    || (meta_class->name() == QLatin1String("QSizeF"))))) {
+                    || (meta_class->name() == QLatin1String("QSizeF"))
+                    || (meta_class->name() == QLatin1String("QQuaternion"))
+                    || (meta_class->name() == QLatin1String("QMargins"))
+                    || (meta_class->name() == QLatin1String("QVector2D"))
+                    || (meta_class->name() == QLatin1String("QVector3D"))
+                    || (meta_class->name() == QLatin1String("QVector4D"))))) {
             stream << fun->originalName() << "(";
             stream << "*_q_self, ";
         } else {
