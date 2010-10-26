@@ -142,6 +142,11 @@
             </modify-argument>
         </modify-function>
     </object-type>
+    <value-type name="Phonon::VideoCaptureDevice" java-name="VideoCaptureDevice">
+        <modify-function signature="operator==(Phonon::ObjectDescription)const" remove="all"/>
+        <modify-function signature="operator!=(Phonon::ObjectDescription)const" remove="all"/>
+        <modify-function signature="fromIndex(int)" remove="all"/>
+    </value-type>
     <object-type name="Phonon::VideoPlayer" java-name="VideoPlayer"/>
     <object-type name="Phonon::VideoWidget" java-name="VideoWidget"/>
     <object-type name="Phonon::VolumeFaderEffect" java-name="VolumeFaderEffect"/>
