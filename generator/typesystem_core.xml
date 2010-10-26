@@ -50,6 +50,7 @@
   <rejection class="" enum-name="QtValidLicenseForSqlModule"/>
   <rejection class="" enum-name="QtValidLicenseForOpenGLModule"/>
   <rejection class="" enum-name="enum_1"/>
+  <rejection class="" enum-name="enum_2"/>
   <rejection class="" enum-name="QtValidLicenseForXmlModule"/>
   <rejection class="" enum-name="QtValidLicenseForXmlPatternsModule"/>
   <rejection class="" enum-name="QtValidLicenseForActiveQtModule"/>
@@ -453,6 +454,9 @@
     <modify-function signature="mightBeRichText(const QString &amp;)" remove="all"/>
     <modify-function signature="escape(const QString&amp;)" remove="all"/>
     <modify-function signature="convertFromPlainText(const QString &amp;, Qt::WhiteSpaceMode)" remove="all"/>
+    <extra-includes>
+      <include file-name="QGesture" location="global"/>
+    </extra-includes>
   
     <extra-includes>
         <include file-name="QTextDocument" location="global"/>
@@ -472,7 +476,9 @@
   <enum-type name="QStateMachine::RestorePolicy"/>
   <enum-type name="Qt::AnchorPoint"/>
   <enum-type name="Qt::CoordinateSystem"/>
-  <!-- <enum-type name="Qt::GestureState" /> -->
+  <enum-type name="Qt::GestureFlag" flags="Qt::GestureFlags"/>
+  <enum-type name="Qt::GestureState"/>
+  <enum-type name="Qt::GestureType"/>
   <enum-type name="Qt::InputMethodHint" flags="Qt::InputMethodHints"/>
   <enum-type name="Qt::NavigationMode"/>
   <enum-type name="Qt::RenderHint"/>
@@ -622,6 +628,7 @@
   <enum-type name="QDataStream::Version">
     <reject-enum-value name="Qt_4_1"/>
     <reject-enum-value name="Qt_4_5"/>
+    <reject-enum-value name="Qt_4_6"/>
   </enum-type>
 
   <enum-type name="QDir::SortFlag" flags="QDir::SortFlags">

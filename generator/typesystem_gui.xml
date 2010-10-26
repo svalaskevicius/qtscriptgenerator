@@ -244,6 +244,7 @@
   <enum-type name="QPaintEngine::Type"/>
   <enum-type name="QPageSetupDialog::PageSetupDialogOption" flags="QPageSetupDialog::PageSetupDialogOptions"/>
   <enum-type name="QPainter::CompositionMode"/>
+  <enum-type name="QPainter::PixmapFragmentHint"/>
   <enum-type name="QPainter::RenderHint" flags="QPainter::RenderHints"/>
   <enum-type name="QPainterPath::ElementType"/>
   <enum-type name="QPrintEngine::PrintEnginePropertyKey">
@@ -380,6 +381,7 @@
   <enum-type name="QTextDocument::FindFlag" flags="QTextDocument::FindFlags"/>
   <enum-type name="QTextDocument::MetaInformation"/>
   <enum-type name="QTextDocument::ResourceType"/>
+  <enum-type name="QTextDocument::Stacks"/>
   <enum-type name="QTextEdit::AutoFormattingFlag" flags="QTextEdit::AutoFormatting"/>
   <enum-type name="QTextEdit::LineWrapMode"/>
   <enum-type name="QTextFormat::ObjectTypes"/>
@@ -3745,6 +3747,7 @@
 
   <object-type name="QWidget">
     <extra-includes>
+        <include file-name="QGesture" location="global"/>
         <include file-name="QIcon" location="global"/>
         <include file-name="QMessageBox" location="global"/>
     </extra-includes>
@@ -5572,6 +5575,9 @@
   <object-type name="QGraphicsObject">
     <!-- Duplicate function to QObject::children() to override accidental shadowing which is not present in Jambi -->
     <modify-function signature="children()const" remove="all"/>
+    <extra-includes>
+      <include file-name="QGesture" location="global"/>
+    </extra-includes>
   </object-type>
   <object-type name="QGraphicsOpacityEffect"/>
   <object-type name="QGraphicsPixelizeEffect"/>
@@ -5586,8 +5592,6 @@
   <object-type name="QSwipeGesture"/>
   <object-type name="QTouchEvent" polymorphic-id-expression="%1-&gt;type() == QEvent::TouchBegin || %1-&gt;type() == QEvent::TouchUpdate || %1-&gt;type() == QEvent::TouchEnd"/>
   
-  <enum-type name="Qt::GestureType"/>
-  <enum-type name="Qt::GestureFlag" flags="Qt::GestureFlags"/>
   <enum-type name="QGesture::GestureCancelPolicy"/>
   <enum-type name="QGraphicsEffect::PixmapPadMode"/>
   <enum-type name="QGraphicsBlurEffect::BlurHint" flags="QGraphicsBlurEffect::BlurHints"/>
