@@ -42,6 +42,14 @@
         <modify-function signature="fromIndex(int)" remove="all" />
     </value-type>
 
+    <value-type name="Phonon::MediaSource" java-name="MediaSource">
+        <modify-function signature="deviceAccessList()const" remove="all" />
+    </value-type>
+
+    <interface-type name="Phonon::PlatformPlugin" java-name="PlatformPlugin">
+        <modify-function signature="deviceAccessListFor(Phonon::AudioOutputDevice)const" remove="all" />
+    </interface-type>
+
   <suppress-warning text="WARNING(MetaJavaBuilder) :: enum 'Phonon::AddonInterface::SubtitleCommand' does not have a type entry or is not an enum" />
   <suppress-warning text="WARNING(MetaJavaBuilder) :: enum 'Phonon::AddonInterface::AudioChannelCommand' does not have a type entry or is not an enum" />
   <suppress-warning text="WARNING(MetaJavaBuilder) :: class 'AudioOutputInterface' inherits from unknown base class 'Phonon::AudioOutputInterface40'" />

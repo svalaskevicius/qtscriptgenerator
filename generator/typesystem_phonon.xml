@@ -55,7 +55,9 @@
     <interface-type name="Phonon::MediaNode" java-name="MediaNode"/>
     
     <interface-type name="Phonon::MediaObjectInterface" java-name="AbstractMediaObject"/>
-    <interface-type name="Phonon::PlatformPlugin" java-name="PlatformPlugin"/>
+    <interface-type name="Phonon::PlatformPlugin" java-name="PlatformPlugin">
+        <modify-function signature="deviceAccessListFor(Phonon::AudioOutputDevice)const" remove="all"/>
+    </interface-type>
     <interface-type name="Phonon::StreamInterface" java-name="AbstractStream"/>
     <interface-type name="Phonon::VideoWidgetInterface" java-name="AbstractVideoWidget"/>
     <interface-type name="Phonon::VolumeFaderInterface" java-name="AbstractVolumeFader"/>
@@ -72,6 +74,8 @@
     </value-type>
     <value-type name="Phonon::MediaSource" java-name="MediaSource">
         <modify-function signature="operator=(Phonon::MediaSource)" remove="all"/> <!-- Covered by copy constructor -->
+    
+        <modify-function signature="deviceAccessList()const" remove="all"/>
     </value-type>
     <value-type name="Phonon::Path" java-name="Path">
         <modify-function signature="disconnect()" rename="disconnectPath"/>
