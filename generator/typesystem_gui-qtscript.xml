@@ -31,6 +31,10 @@
   <rejection class="QPrinterInfo"/> <!-- ### constructor takes QPrinter&, must become QPrinter* -->
   <rejection class="QTextOption"/> <!-- ### nested class QTextOption::Tab -->
 
+  <object-type name="QFileOpenEvent">
+    <modify-function signature="openFile(QFile&amp;,QFlags&lt;QIODevice::OpenModeFlag&gt;)const" remove="all"/>
+  </object-type>
+
   <value-type name="QTextFormat">
     <modify-function signature="setProperty(int,QVector&lt;QTextLength&gt;)" rename="setLengthVectorProperty"/>
     <inject-code class="native" position="constructor">

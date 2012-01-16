@@ -2610,7 +2610,9 @@
 
 
   </object-type>
-  <object-type name="QFileOpenEvent" polymorphic-id-expression="%1-&gt;type() == QEvent::FileOpen"/>
+  <object-type name="QFileOpenEvent" polymorphic-id-expression="%1-&gt;type() == QEvent::FileOpen">
+    <modify-function signature="openFile(QFile&amp;,QFlags&lt;QIODevice::OpenModeFlag&gt;)const" remove="all"/>
+  </object-type>
   <object-type name="QFocusEvent" polymorphic-id-expression="%1-&gt;type() == QEvent::FocusIn || %1-&gt;type() == QEvent::FocusOut">
         <modify-function signature="reason()const">
             <remove/>
