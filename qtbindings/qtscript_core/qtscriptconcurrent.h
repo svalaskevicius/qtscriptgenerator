@@ -45,15 +45,26 @@
 #ifndef QT_NO_CONCURRENT
 
 #include <QtScript/qscriptvalue.h>
-#include <QtCore/qfuture.h>
-#include <QtCore/qfuturewatcher.h>
-#include <QtCore/qfuturesynchronizer.h>
+// #include <QtCore/qfuture.h>
+#include <QtConcurrent/qfuture.h>
+#include <QtConcurrent/qfuturewatcher.h>
+#include <QtConcurrent/QFuture>
+#include <QtConcurrent/QFutureWatcher>
+#include <QtConcurrent/QFutureSynchronizer>
+//#include <QtCore/qfuturewatcher.h>
+//#include <QtCore/qfuturesynchronizer.h>
 
-typedef QFutureWatcher<void> QtScriptVoidFutureWatcher;
+//typedef QFutureWatcher<void> QtScriptVoidFutureWatcher;
+class QtScriptVoidFutureWatcher : public QFutureWatcher<void> {
+    Q_OBJECT
+};
 typedef QFuture<void> QtScriptVoidFuture;
 typedef QFutureSynchronizer<void> QtScriptVoidFutureSynchronizer;
 typedef QFuture<QScriptValue> QtScriptFuture;
-typedef QFutureWatcher<QScriptValue> QtScriptFutureWatcher;
+//typedef QFutureWatcher<QScriptValue> QtScriptFutureWatcher;
+class QtScriptFutureWatcher : public QFutureWatcher<QScriptValue> {
+    Q_OBJECT
+};
 typedef QFutureSynchronizer<QScriptValue> QtScriptFutureSynchronizer;
 typedef QFutureIterator<QScriptValue> QtScriptFutureIterator;
 
