@@ -66,6 +66,7 @@
   <rejection class="QAbstractFileEngineIterator"/>
   <rejection class="QFSFileEngine"/>
   <rejection class="QSystemLocale"/>
+  <rejection class="QThread"/>
 
   <rejection class="QFutureWatcherBase"/>
   <rejection class="QFutureSynchronizer"/> <!-- ### problem with shell class -->
@@ -212,11 +213,11 @@
     </modify-function>
   </value-type>
 
-  <object-type name="QAbstractEventDispatcher">
+  <!-- object-type name="QAbstractEventDispatcher">
     <extra-includes>
         <include file-name="QPair" location="global"/>
     </extra-includes>
-  </object-type>
+  </object-type -->
 
   <value-type name="QBitArray">
     <modify-function signature="at(int)const">

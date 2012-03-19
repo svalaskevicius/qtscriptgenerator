@@ -280,6 +280,7 @@
   <rejection class="QStack"/>
   <rejection class="QSysInfo"/>
   <rejection class="QTextStreamManipulator"/>
+  <rejection class="QThread"/>
   <rejection class="QThreadStorage"/>
   <rejection class="QThreadStorageData"/>
   <rejection class="QTypeInfo"/>
@@ -355,6 +356,7 @@
 
   <rejection class="QAbstractEventDispatcher" function-name="filterEvent"/>
   <rejection class="QAbstractEventDispatcher" function-name="setEventFilter"/>
+  <rejection class="QAbstractEventDispatcher" function-name="registerTimer"/>
   <rejection class="QAbstractFileEngine" function-name="beginEntryList"/>
   <rejection class="QAbstractFileEngine" function-name="endEntryList"/>
   <rejection class="QAbstractFileEngine" function-name="extension"/>
@@ -392,6 +394,8 @@
   <rejection class="QObject" function-name="disconnectNotify"/>
   <rejection class="QObject" function-name="registerUserData"/>
   <rejection class="QObject" function-name="sender"/>
+  <rejection class="QObject" function-name="moveToThread"/>
+  <rejection class="QObject" function-name="thread"/>
   <rejection class="QTimer" function-name="singleShot"/>
   <rejection class="QProcess" function-name="pid"/>
   <rejection class="QRegion" function-name="cleanUp"/>
@@ -941,7 +945,7 @@
   <object-type name="QFinalState" />
 
   <object-type name="QXmlStreamEntityResolver" />
-  <object-type name="QAbstractEventDispatcher"/>
+  <!-- object-type name="QAbstractEventDispatcher"/ -->
   <object-type name="QEventLoop"/>
   <object-type name="QFile">
     <modify-function signature="readLink()const" remove="all"/>
@@ -1313,6 +1317,9 @@
       <remove/>
     </modify-function>
     <modify-function signature="operator&gt;&gt;(ulong&amp;)">
+      <remove/>
+    </modify-function>
+    <modify-function signature="operator&lt;&lt;(const QLatin1String &amp;)">
       <remove/>
     </modify-function>
     <modify-function signature="setString(QString*,QFlags&lt;QIODevice::OpenModeFlag&gt;)">

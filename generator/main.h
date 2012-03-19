@@ -111,8 +111,9 @@ struct Preprocess
             includes << qtdir;
         }
 
-        foreach (QString include, includes)
-            preprocess.push_include_path(QDir::convertSeparators(include).toStdString());        
+        foreach (QString include, includes) {
+            preprocess.push_include_path(QDir::toNativeSeparators(include).toStdString()); 
+        }
 
         QString currentDir = QDir::current().absolutePath();
         QFileInfo sourceInfo(sourceFile);

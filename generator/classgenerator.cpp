@@ -1059,9 +1059,9 @@ void maybeDeclareMetaType(QTextStream &stream, const QString &typeName,
                << "    static int qt_metatype_id() \\" << endl
                << "    { \\" << endl
                << "        static QBasicAtomicInt metatype_id = Q_BASIC_ATOMIC_INITIALIZER(0); \\" << endl
-               << "        if (!metatype_id) \\" << endl
-               << "            metatype_id = qRegisterMetaType< " << name << " >(\"" << name << "\"); \\" << endl
-               << "        return metatype_id; \\" << endl
+               << "        if (!metatype_id.load()) \\" << endl
+               << "            metatype_id.store(qRegisterMetaType< " << name << " >(\"" << name << "\")); \\" << endl
+               << "        return metatype_id.load(); \\" << endl
                << "    } \\" << endl
                << "};" << endl;
     } else {

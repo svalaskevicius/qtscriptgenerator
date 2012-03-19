@@ -1799,7 +1799,7 @@ AbstractMetaType *AbstractMetaBuilder::translateType(const TypeInfo &_typei, boo
                 return t;
 
             ClassModelItem item = m_dom->findClass(contexts.at(0));
-            if (item != 0)
+            if (item)
                 contexts += item->baseClasses();
             contexts.pop_front();
 
