@@ -2368,24 +2368,36 @@
   
     <modify-function signature="operator==(const QFuture &amp;)const">
         <modify-argument index="1">
-            <replace-type modified-type="QtScriptVoidFuture"/>
+            <replace-type modified-type="QtScriptVoidFuture*"/>
+            <conversion-rule class="native">
+                const QtScriptVoidFuture &amp; %out% = *qscriptvalue_cast&lt;QtScriptVoidFuture*&gt;(%in%);
+            </conversion-rule>
         </modify-argument>
     </modify-function>  
     <modify-function signature="QFuture(const QFuture &amp;)">
         <modify-argument index="1">
-            <replace-type modified-type="QtScriptVoidFuture"/>
+            <replace-type modified-type="QtScriptVoidFuture*"/>
+            <conversion-rule class="native">
+                const QtScriptVoidFuture &amp; %out% = *qscriptvalue_cast&lt;QtScriptVoidFuture*&gt;(%in%);
+            </conversion-rule>
         </modify-argument>
     </modify-function>    
   </value-type>
   <value-type name="QtScriptFuture" java-name="QFuture" generic-class="yes">
     <modify-function signature="operator==(const QFuture &amp;)const">
         <modify-argument index="1">
-            <replace-type modified-type="QtScriptFuture"/>
+            <replace-type modified-type="QtScriptFuture*"/>
+            <conversion-rule class="native">
+                const QtScriptFuture &amp; %out% = *qscriptvalue_cast&lt;QtScriptFuture*&gt;(%in%);
+            </conversion-rule>
         </modify-argument>
     </modify-function>  
     <modify-function signature="QFuture(const QFuture &amp;)">
         <modify-argument index="1">
             <replace-type modified-type="QtScriptFuture"/>
+            <conversion-rule class="native">
+                const QtScriptFuture &amp; %out% = *qscriptvalue_cast&lt;QtScriptFuture*&gt;(%in%);
+            </conversion-rule>
         </modify-argument>
     </modify-function>  
     <inject-code class="native">
@@ -2399,7 +2411,10 @@
   <object-type name="QtScriptVoidFutureWatcher" java-name="QFutureWatcherVoid">
     <modify-function signature="setFuture(const QFuture &amp;)">
         <modify-argument index="1">
-            <replace-type modified-type="QtScriptVoidFuture"/>
+            <replace-type modified-type="QtScriptVoidFuture*"/>
+            <conversion-rule class="native">
+                const QtScriptVoidFuture &amp; %out% = *qscriptvalue_cast&lt;QtScriptVoidFuture*&gt;(%in%);
+            </conversion-rule>
         </modify-argument>
     </modify-function>         
   </object-type>
@@ -2410,7 +2425,10 @@
   <object-type name="QtScriptFutureWatcher" java-name="QFutureWatcher" generic-class="yes">
     <modify-function signature="setFuture(const QFuture &amp;)">
         <modify-argument index="1">
-            <replace-type modified-type="QtScriptFuture"/>
+            <replace-type modified-type="QtScriptFuture*"/>
+            <conversion-rule class="native">
+                const QtScriptFuture &amp; %out% = *qscriptvalue_cast&lt;QtScriptFuture*&gt;(%in%);
+            </conversion-rule>
         </modify-argument>
     </modify-function>         
   </object-type>
@@ -2419,17 +2437,26 @@
   <object-type name="QtScriptFutureSynchronizer" generic-class="yes" java-name="QFutureSynchronizer">
       <modify-function signature="QFutureSynchronizer(const QFuture &amp;)">
         <modify-argument index="1">
-            <replace-type modified-type="QtScriptFuture"/>
+            <replace-type modified-type="QtScriptFuture*"/>
+            <conversion-rule class="native">
+                const QtScriptFuture &amp; %out% = *qscriptvalue_cast&lt;QtScriptFuture*&gt;(%in%);
+            </conversion-rule>
         </modify-argument>
       </modify-function>
       <modify-function signature="addFuture(const QFuture &amp;)">
         <modify-argument index="1">
-            <replace-type modified-type="QtScriptFuture"/>
+            <replace-type modified-type="QtScriptFuture*"/>
+            <conversion-rule class="native">
+                const QtScriptFuture &amp; %out% = *qscriptvalue_cast&lt;QtScriptFuture*&gt;(%in%);
+            </conversion-rule>
         </modify-argument>
       </modify-function>      
       <modify-function signature="setFuture(const QFuture &amp;)">
         <modify-argument index="1">
-            <replace-type modified-type="QtScriptFuture"/>
+            <replace-type modified-type="QtScriptFuture*"/>
+            <conversion-rule class="native">
+                const QtScriptFuture &amp; %out% = *qscriptvalue_cast&lt;QtScriptFuture*&gt;(%in%);
+            </conversion-rule>
         </modify-argument>
       </modify-function>            
       <modify-function signature="futures()const" remove="all"/>
@@ -2437,17 +2464,26 @@
   <object-type name="QtScriptVoidFutureSynchronizer" java-name="QFutureSynchronizerVoid">
       <modify-function signature="QFutureSynchronizer(const QFuture &amp;)">
         <modify-argument index="1">
-            <replace-type modified-type="QtScriptVoidFuture"/>
+            <replace-type modified-type="QtScriptVoidFuture*"/>
+            <conversion-rule class="native">
+                const QtScriptVoidFuture &amp; %out% = *qscriptvalue_cast&lt;QtScriptVoidFuture*&gt;(%in%);
+            </conversion-rule>
         </modify-argument>
       </modify-function>
       <modify-function signature="addFuture(const QFuture &amp;)">
         <modify-argument index="1">
-            <replace-type modified-type="QtScriptVoidFuture"/>
+            <replace-type modified-type="QtScriptVoidFuture*"/>
+            <conversion-rule class="native">
+                const QtScriptVoidFuture &amp; %out% = *qscriptvalue_cast&lt;QtScriptVoidFuture*&gt;(%in%);
+            </conversion-rule>
         </modify-argument>
       </modify-function>      
       <modify-function signature="setFuture(const QFuture &amp;)">
         <modify-argument index="1">
-            <replace-type modified-type="QtScriptVoidFuture"/>
+            <replace-type modified-type="QtScriptVoidFuture*"/>
+            <conversion-rule class="native">
+                const QtScriptVoidFuture &amp; %out% = *qscriptvalue_cast&lt;QtScriptVoidFuture*&gt;(%in%);
+            </conversion-rule>
         </modify-argument>
       </modify-function>                  
       <modify-function signature="futures()const" remove="all"/>
@@ -2460,7 +2496,10 @@
   <object-type name="QtScriptFutureIterator" generic-class="yes" java-name="QFutureIterator">
     <modify-function signature="QFutureIterator(const QFuture &amp;)">
         <modify-argument index="1">
-            <replace-type modified-type="QtScriptFuture"/>
+            <replace-type modified-type="QtScriptFuture*"/>
+            <conversion-rule class="native">
+                const QtScriptFuture &amp; %out% = *qscriptvalue_cast&lt;QtScriptFuture*&gt;(%in%);
+            </conversion-rule>
         </modify-argument>
     </modify-function>       
   </object-type>

@@ -34,6 +34,29 @@
   <object-type name="QFileOpenEvent">
     <modify-function signature="openFile(QFile&amp;,QFlags&lt;QIODevice::OpenModeFlag&gt;)const" remove="all"/>
   </object-type>
+  
+  <object-type name="QIconEngine">
+    <modify-function signature="read(QDataStream&amp;)">
+        <modify-argument index="1">
+            <replace-type modified-type="QDataStream*"/>
+            <conversion-rule class="native">
+                QDataStream &amp; %out% = *qscriptvalue_cast&lt;QDataStream*&gt;(%in%);
+            </conversion-rule>
+            <conversion-rule class="shell">
+                jobject %out = qtjambi_from_object(__jni_env, %in, "QImage", "com/trolltech/qt/gui/", false);
+                QtJambiLink *__link = %out != 0 ? QtJambiLink::findLink(__jni_env, %out) : 0;
+            </conversion-rule>
+        </modify-argument>
+    </modify-function>
+    <modify-function signature="write(QDataStream&amp;)const">
+        <modify-argument index="1">
+            <replace-type modified-type="QDataStream*"/>
+            <conversion-rule class="native">
+                QDataStream &amp; %out% = *qscriptvalue_cast&lt;QDataStream*&gt;(%in%);
+            </conversion-rule>
+        </modify-argument>
+    </modify-function>
+  </object-type>
 
   <value-type name="QTextFormat">
     <modify-function signature="setProperty(int,QVector&lt;QTextLength&gt;)" rename="setLengthVectorProperty"/>
