@@ -107,6 +107,8 @@
   <rejection class="QStyleOptionViewItemV2"/>
   <rejection class="QStyleOptionViewItemV3"/>
   <rejection class="QStyleOptionViewItemV4"/>
+  <rejection class="QDataStream"/>
+  <rejection class="QIconEngine"/>
 
   <enum-type name="QStyleOptionTabBarBase::StyleOptionVersion" />
   <enum-type name="QTabBar::SelectionBehavior" />
@@ -707,6 +709,7 @@
   </value-type>
 
   <value-type name="QIcon" delete-in-main-thread="yes">
+    <include file-name="QIconEngine" location="global"/>
     <modify-function signature="operator=(QIcon)" remove="all"/>
     <modify-function signature="serialNumber()const" remove="all"/> <!--### Obsolete in 4.3-->
     <!--modify-function signature="QIcon(QIconEngineV2 *)">

@@ -107,6 +107,8 @@
   <rejection class="QStyleOptionViewItemV2"/>
   <rejection class="QStyleOptionViewItemV3"/>
   <rejection class="QStyleOptionViewItemV4"/>
+  <rejection class="QDataStream"/>
+  <rejection class="QIconEngine"/>
 
   <enum-type name="QStyleOptionTabBarBase::StyleOptionVersion"/>
   <enum-type name="QTabBar::SelectionBehavior"/>

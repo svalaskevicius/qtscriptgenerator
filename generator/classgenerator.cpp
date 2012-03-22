@@ -68,13 +68,19 @@ bool ClassGenerator::shouldGenerate(const AbstractMetaClass *meta_class) const
 static QString normalizedType(const AbstractMetaType *type)
 {
     QString str = QString::fromLatin1(QMetaObject::normalizedType(type->cppSignature().toLatin1()));
-    //if (str.endsWith(QLatin1Char('&')))
-        //str.chop(1);
-    //else
-    if (str.startsWith("const ")) {
-        if (str.endsWith('*') || type->hasInstantiations() || type->typeEntry()->isValue())
-            str.remove(0, 6);
+    if (str.endsWith(QLatin1Char('&'))) {
+        str.chop(1);
     }
+//    if (str.startsWith("const ")) {
+//        if (str.endsWith('*') || type->hasInstantiations() || type->typeEntry()->isValue())
+//            str.remove(0, 6);
+//    }
+    if (!str.endsWith(QLatin1Char('*'))) {
+        if (str.startsWith("const ")) {
+            str.remove(0, 6);
+        }
+    }
+
     if (str == QLatin1String("QBool")) // ### hack
         str = QLatin1String("bool");
     return str;
@@ -504,7 +510,7 @@ static void writeFunctionCallAndReturn(QTextStream &stream, const AbstractMetaFu
     bool constCastResult = false;
     if (retType && !ignoreReturnValue) {
         QString rsig = retType->cppSignature();
-        QString typeName = normalizedType(retType);
+        QString typeName = retType->minimalSignature();//normalizedType(retType); //
         stream << typeName << " _q_result = ";
         constCastResult = rsig.endsWith('*') && rsig.startsWith("const ");
         if (constCastResult)
@@ -564,7 +570,11 @@ static void writeFunctionCallAndReturn(QTextStream &stream, const AbstractMetaFu
                     stream << "QScriptValue";
                 else
                     stream << "qScriptValueFromValue";
-                stream << "(context->engine(), _q_result);";
+                stream << "(context->engine(), ";
+//                if (retType->isReference()) {
+//                    stream << "&";
+//                }
+                stream << "_q_result);";
             } else {
                 stream << "context->engine()->undefinedValue();";
             }
@@ -1063,7 +1073,11 @@ void maybeDeclareMetaType(QTextStream &stream, const QString &typeName,
     QString name = typeName;
     if (name.endsWith(QLatin1Char('&'))) {
         name.chop(1);
-        name += "*";
+    }
+    if (!name.endsWith(QLatin1Char('*'))) {
+        if (name.startsWith("const ")) {
+            name.remove(0, 6);
+        }
     }
     QString nameFootPrint = name;
     nameFootPrint.replace("uint", "unsigned int");
@@ -1103,7 +1117,7 @@ static void declareTypeRecursive(QTextStream &stream, const AbstractMetaType *ty
     QList<AbstractMetaType *> subTypes = type->instantiations();
     for (int i = 0; i < subTypes.size(); ++i)
         declareTypeRecursive(stream, subTypes.at(i), registeredTypeNames);
-    QString typeName = normalizedType(type);
+    QString typeName = type->minimalSignature();//normalizedType(type);
     maybeDeclareMetaType(stream, typeName, registeredTypeNames);
 }
 
@@ -1127,12 +1141,17 @@ void declareFunctionMetaTypes(QTextStream &stream, const AbstractMetaFunctionLis
             QString repl = fun->typeReplaced(j+1);
             if (!repl.isEmpty()) {
                 maybeDeclareMetaType(stream, repl, registeredTypeNames);
-                if (arguments.at(j)->type()->isReference()) {
-                    maybeDeclareMetaType(stream, arguments.at(j)->type()->minimalNoRefNoConstSignature(), registeredTypeNames);
-                }
+//                if (arguments.at(j)->type()->isReference()) {
+//                    maybeDeclareMetaType(stream, repl, registeredTypeNames);
+//                    maybeDeclareMetaType(stream, arguments.at(j)->type()->minimalRef2PtrSignature(), registeredTypeNames);
+//                }
             } else {
                 const AbstractMetaArgument *arg = arguments.at(j);
                 declareTypeRecursive(stream, arg->type(), registeredTypeNames);
+                if (arguments.at(j)->type()->isReference()) {
+                    maybeDeclareMetaType(stream, arguments.at(j)->type()->minimalNoRefNoConstSignature(), registeredTypeNames);
+                    maybeDeclareMetaType(stream, arguments.at(j)->type()->minimalRef2PtrSignature(), registeredTypeNames);
+                }
             }
         }
         QString retRepl = fun->typeReplaced(0);

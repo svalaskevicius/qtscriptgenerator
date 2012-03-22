@@ -212,11 +212,11 @@ void ShellImplGenerator::write(QTextStream &s, const AbstractMetaClass *meta_cla
                 QString asig = atype->cppSignature();
                 bool constCastArg = asig.endsWith('*') && asig.startsWith("const ");
                 if (constCastArg) {
-                    s << "const_cast<" << asig.mid(6) << ">(";
+                    s << "const_cast<" << asig << ">(";
                 }
-                if (atype->isReference()) {
-                    s << "&";
-                }
+//                if (atype->isReference()) {
+//                    s << "&";
+//                }
                 s << args.at(i)->argumentName() << ")";
                 if (constCastArg)
                     s << ")";

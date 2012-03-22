@@ -450,6 +450,7 @@
   <rejection class="QtConcurrent::ThreadEngineBarrier"/>
 
   <rejection class="QAbstractFileEngineIterator" enum-name="EntryInfoType"/>
+  <rejection class="QDataStream"/>
   <rejection class="QDataStream" enum-name="ByteOrder"/>
 
 
