@@ -52,7 +52,7 @@ QString ShellImplGenerator::fileNameForClass(const AbstractMetaClass *meta_class
     return QString("qtscriptshell_%1.cpp").arg(meta_class->name());
 }
 
-static bool include_less_than(const Include &a, const Include &b) 
+static bool include_less_than(const Include &a, const Include &b)
 {
     return a.name < b.name;
 }
@@ -211,8 +211,12 @@ void ShellImplGenerator::write(QTextStream &s, const AbstractMetaClass *meta_cla
                 AbstractMetaType *atype = args.at(j)->type();
                 QString asig = atype->cppSignature();
                 bool constCastArg = asig.endsWith('*') && asig.startsWith("const ");
-                if (constCastArg)
+                if (constCastArg) {
                     s << "const_cast<" << asig.mid(6) << ">(";
+                }
+                if (atype->isReference()) {
+                    s << "&";
+                }
                 s << args.at(i)->argumentName() << ")";
                 if (constCastArg)
                     s << ")";

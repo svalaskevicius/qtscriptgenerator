@@ -68,9 +68,10 @@ bool ClassGenerator::shouldGenerate(const AbstractMetaClass *meta_class) const
 static QString normalizedType(const AbstractMetaType *type)
 {
     QString str = QString::fromLatin1(QMetaObject::normalizedType(type->cppSignature().toLatin1()));
-    if (str.endsWith(QLatin1Char('&')))
-        str.chop(1);
-    else if (str.startsWith("const ")) {
+    //if (str.endsWith(QLatin1Char('&')))
+        //str.chop(1);
+    //else
+    if (str.startsWith("const ")) {
         if (str.endsWith('*') || type->hasInstantiations() || type->typeEntry()->isValue())
             str.remove(0, 6);
     }
@@ -616,8 +617,8 @@ static void writeConstructorForwarding(QTextStream &stream,
     stream << "/** signatures:" << endl;
     foreach (const AbstractMetaFunction *fun, functions) {
         stream << " *     " << fun->signature() << endl;
-    } 
-    stream << " */" << endl; 
+    }
+    stream << " */" << endl;
 #endif
 
     if (/*meta_class->isAbstract() ||*/ (functions.size() == 0)) {
@@ -1013,7 +1014,7 @@ static void writeEnumClass(QTextStream &stream, const AbstractMetaClass *meta_cl
            << "{" << endl
            << "    QVariant thisObj = context->thisObject().toVariant();" << endl
            << "    QVariant otherObj = context->argument(0).toVariant();" << endl
-           
+
            << "    return QScriptValue(engine, ((thisObj.userType() == otherObj.userType()) &&" << endl
            << "                                 (thisObj.value<" << qualifiedFlagsName << ">() == otherObj.value<" << qualifiedFlagsName << ">())));" << endl
            << "}" << endl << endl;
@@ -1044,10 +1045,30 @@ static void writeEnumClass(QTextStream &stream, const AbstractMetaClass *meta_cl
 void maybeDeclareMetaType(QTextStream &stream, const QString &typeName,
                           QSet<QString> &registeredTypeNames)
 {
+      if (typeName == QLatin1String("QFile"))
+          return;
+      if (typeName == QLatin1String("QFuture"))
+          return;
+      if (typeName == QLatin1String("QXmlStreamReader"))
+          return;
+      if (typeName == QLatin1String("QDataStream"))
+          return;
+      if (typeName == QLatin1String("QTextStream"))
+          return;
+
+//    if (typeName == QLatin1String("QStringList<QString>"))
+//        return; // ### wtf...
+//    if (typeName == QLatin1String("const QStringList<QString>*"))
+//        return; // ### wtf...
     QString name = typeName;
-    if (name.endsWith(QLatin1Char('&')))
+    if (name.endsWith(QLatin1Char('&'))) {
         name.chop(1);
-    if (registeredTypeNames.contains(name) || (QMetaType::type(typeName.toLatin1()) != 0))
+        name += "*";
+    }
+    QString nameFootPrint = name;
+    nameFootPrint.replace("uint", "unsigned int");
+    nameFootPrint.replace(" ", "");
+    if (registeredTypeNames.contains(nameFootPrint) || (QMetaType::type(name.toLatin1()) != 0))
         return;
     if (name.contains(QLatin1Char(','))) {
         // need to expand the Q_DECLARE_METATYPE macro manually,
@@ -1067,7 +1088,7 @@ void maybeDeclareMetaType(QTextStream &stream, const QString &typeName,
     } else {
         stream << "Q_DECLARE_METATYPE(" << name << ")" << endl;
     }
-    registeredTypeNames << name;
+    registeredTypeNames << nameFootPrint;
 }
 
 /*!
@@ -1083,8 +1104,6 @@ static void declareTypeRecursive(QTextStream &stream, const AbstractMetaType *ty
     for (int i = 0; i < subTypes.size(); ++i)
         declareTypeRecursive(stream, subTypes.at(i), registeredTypeNames);
     QString typeName = normalizedType(type);
-    if (typeName == QLatin1String("QStringList<QString>"))
-        return; // ### wtf...
     maybeDeclareMetaType(stream, typeName, registeredTypeNames);
 }
 
@@ -1108,6 +1127,9 @@ void declareFunctionMetaTypes(QTextStream &stream, const AbstractMetaFunctionLis
             QString repl = fun->typeReplaced(j+1);
             if (!repl.isEmpty()) {
                 maybeDeclareMetaType(stream, repl, registeredTypeNames);
+                if (arguments.at(j)->type()->isReference()) {
+                    maybeDeclareMetaType(stream, arguments.at(j)->type()->minimalNoRefNoConstSignature(), registeredTypeNames);
+                }
             } else {
                 const AbstractMetaArgument *arg = arguments.at(j);
                 declareTypeRecursive(stream, arg->type(), registeredTypeNames);
@@ -1178,8 +1200,8 @@ static void writeFunctionForwarding(QTextStream &stream, const AbstractMetaClass
     stream << "/** signatures:" << endl;
     foreach (const AbstractMetaFunction *fun, functions) {
         stream << " *     " << fun->signature() << endl;
-    } 
-    stream << " */" << endl; 
+    }
+    stream << " */" << endl;
 #endif
     QMap<int, AbstractMetaFunctionList> argcToFunctions;
     argcToFunctions = createArgcToFunctionsMap(functions);
@@ -1266,7 +1288,7 @@ static void writePrototypeCall(QTextStream &s, const AbstractMetaClass *meta_cla
         s << ")";
 #endif
     s << ";" << endl
-      << "    if (!_q_self) {" << endl 
+      << "    if (!_q_self) {" << endl
       << "        return context->throwError(QScriptContext::TypeError," << endl
       << "            QString::fromLatin1(\"" << meta_class->name()
       << ".%0(): this object is not a " << meta_class->name() << "\")" << endl
@@ -1479,6 +1501,8 @@ void ClassGenerator::write(QTextStream &stream, const AbstractMetaClass *meta_cl
     stream << "#include <QtCore/QStringList>" << endl;
     stream << "#include <QtCore/QDebug>" << endl;
     stream << "#include <qmetaobject.h>" << endl;
+    stream << endl;
+    stream << "#include \"../lib/shared.h\"" << endl;
     stream << endl;
 
     // write class-specific includes

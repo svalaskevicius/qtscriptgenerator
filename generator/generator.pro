@@ -11,7 +11,7 @@ HEADERS += \
         shellheadergenerator.h \
         setupgenerator.h \
         docgenerator.h
-   
+
 SOURCES += \
         generatorsetqtscript.cpp \
         metaqtscriptbuilder.cpp \

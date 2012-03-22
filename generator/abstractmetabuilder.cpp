@@ -313,21 +313,21 @@ void AbstractMetaBuilder::traverseStreamOperator(FunctionModelItem item)
 }
 
 void AbstractMetaBuilder::fixQObjectForScope(TypeDatabase *types,
-					 NamespaceModelItem scope)
+                                         NamespaceModelItem scope)
 {
     foreach (ClassModelItem item, scope->classes()) {
         QString qualified_name = item->qualifiedName().join("::");
         TypeEntry *entry = types->findType(qualified_name);
         if (entry) {
-	    if (isQObject(qualified_name) && entry->isComplex()) {
+            if (isQObject(qualified_name) && entry->isComplex()) {
                 ((ComplexTypeEntry *) entry)->setQObject(true);
-	    }
-	}
+            }
+        }
     }
 
     foreach (NamespaceModelItem item, scope->namespaceMap().values()) {
         if (scope != item)
-	  fixQObjectForScope(types, item);
+          fixQObjectForScope(types, item);
     }
 }
 
@@ -1835,18 +1835,18 @@ AbstractMetaType *AbstractMetaBuilder::translateType(const TypeInfo &_typei, boo
     if (meta_type->typeEntry()->isContainer()) {
         ContainerTypeEntry::Type container_type = static_cast<const ContainerTypeEntry *>(type)->type();
 
-        if (container_type == ContainerTypeEntry::StringListContainer) {
-            TypeInfo info;
-            info.setQualifiedName(QStringList() << "QString");
-            AbstractMetaType *targ_type = translateType(info, ok);
+//        if (container_type == ContainerTypeEntry::StringListContainer) {
+//            TypeInfo info;
+//            info.setQualifiedName(QStringList() << "QString");
+//            AbstractMetaType *targ_type = translateType(info, ok);
 
-            Q_ASSERT(*ok);
-            Q_ASSERT(targ_type);
+//            Q_ASSERT(*ok);
+//            Q_ASSERT(targ_type);
 
-            meta_type->addInstantiation(targ_type);
-            meta_type->setInstantiationInCpp(false);
+//            meta_type->addInstantiation(targ_type);
+//            meta_type->setInstantiationInCpp(false);
 
-        } else {
+//        } else {
             foreach (const TypeParser::Info &ta, typeInfo.template_instantiations) {
                 TypeInfo info;
                 info.setConstant(ta.is_constant);
@@ -1864,11 +1864,12 @@ AbstractMetaType *AbstractMetaBuilder::translateType(const TypeInfo &_typei, boo
 
                 meta_type->addInstantiation(targ_type);
             }
-        }
+//        }
 
         if (container_type == ContainerTypeEntry::ListContainer
             || container_type == ContainerTypeEntry::VectorContainer
-            || container_type == ContainerTypeEntry::StringListContainer) {
+        ) {
+//            || container_type == ContainerTypeEntry::StringListContainer) {
             Q_ASSERT(meta_type->instantiations().size() == 1);
         }
     }

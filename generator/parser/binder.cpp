@@ -748,7 +748,7 @@ static QString strip_preprocessor_lines(const QString &name)
 
 void Binder::visitEnumerator(EnumeratorAST *node)
 {
-  Q_ASSERT(_M_current_enum != 0);
+  Q_ASSERT(_M_current_enum.data() != 0);
   EnumeratorModelItem e = model()->create<EnumeratorModelItem>();
   updateItemPosition (e->toItem(), node);
   e->setName(decode_symbol(node->id)->as_string());
