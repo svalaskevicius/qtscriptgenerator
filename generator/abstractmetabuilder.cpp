@@ -1868,7 +1868,6 @@ AbstractMetaType *AbstractMetaBuilder::translateType(const TypeInfo &_typei, boo
 
         if (container_type == ContainerTypeEntry::ListContainer
             || container_type == ContainerTypeEntry::VectorContainer
-//        ) {
             || container_type == ContainerTypeEntry::StringListContainer) {
             Q_ASSERT(meta_type->instantiations().size() == 1);
         }

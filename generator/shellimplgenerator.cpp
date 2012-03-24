@@ -214,9 +214,6 @@ void ShellImplGenerator::write(QTextStream &s, const AbstractMetaClass *meta_cla
                 if (constCastArg) {
                     s << "const_cast<" << asig << ">(";
                 }
-//                if (atype->isReference()) {
-//                    s << "&";
-//                }
                 s << args.at(i)->argumentName() << ")";
                 if (constCastArg)
                     s << ")";
