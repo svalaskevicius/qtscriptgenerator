@@ -1,4 +1,4 @@
-QT = core gui script
+QT = core gui script widgets
 win32: CONFIG += console
 mac:CONFIG -= app_bundle
 SOURCES += main.cpp

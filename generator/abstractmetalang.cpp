@@ -1879,7 +1879,7 @@ QString AbstractMetaType::minimalSignature() const
     if (isConstant())
         minimalSignature += "const ";
     minimalSignature += typeEntry()->qualifiedCppName();
-    if (hasInstantiations()) {
+    if (hasInstantiationInCpp()) {
         QList<AbstractMetaType *> instantiations = this->instantiations();
         minimalSignature += "<";
         for (int i=0;i<instantiations.size();++i) {
@@ -1904,7 +1904,7 @@ QString AbstractMetaType::minimalRef2PtrSignature() const
 //    if (isConstant())
 //        minimalSignature += "const ";
     minimalSignature += typeEntry()->qualifiedCppName();
-    if (hasInstantiations()) {
+    if (hasInstantiationInCpp()) {
         QList<AbstractMetaType *> instantiations = this->instantiations();
         minimalSignature += "<";
         for (int i=0;i<instantiations.size();++i) {
@@ -1925,7 +1925,7 @@ QString AbstractMetaType::minimalNoRefNoConstSignature() const
 {
     QString minimalSignature;
     minimalSignature += typeEntry()->qualifiedCppName();
-    if (hasInstantiations()) {
+    if (hasInstantiationInCpp()) {
         QList<AbstractMetaType *> instantiations = this->instantiations();
         minimalSignature += "<";
         for (int i=0;i<instantiations.size();++i) {
