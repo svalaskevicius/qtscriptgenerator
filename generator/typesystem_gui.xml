@@ -319,13 +319,10 @@
   <enum-type name="QStyleOptionComplex::StyleOptionVersion"/>
   <enum-type name="QStyleOptionDockWidget::StyleOptionType"/>
   <enum-type name="QStyleOptionDockWidget::StyleOptionVersion"/>
-  <enum-type name="QStyleOptionDockWidget::StyleOptionVersion"/>
   <enum-type name="QStyleOptionFocusRect::StyleOptionType"/>
   <enum-type name="QStyleOptionFocusRect::StyleOptionVersion"/>
   <enum-type name="QStyleOptionFrame::StyleOptionType"/>
-  <enum-type name="QStyleOptionFrame::StyleOptionVersion"/>
   <enum-type name="QStyleOptionFrame::FrameFeature" flags="QStyleOptionFrame::FrameFeatures"/>
-  <enum-type name="QStyleOptionFrame::StyleOptionVersion"/>
   <enum-type name="QStyleOptionGraphicsItem::StyleOptionType"/>
   <enum-type name="QStyleOptionGraphicsItem::StyleOptionVersion"/>
   <enum-type name="QStyleOptionGroupBox::StyleOptionType"/>
@@ -352,11 +349,8 @@
   <enum-type name="QStyleOptionTab::CornerWidget" flags="QStyleOptionTab::CornerWidgets"/>
   <enum-type name="QStyleOptionTab::SelectedPosition"/>
   <enum-type name="QStyleOptionTab::StyleOptionType"/>
-  <enum-type name="QStyleOptionTab::StyleOptionVersion"/>
   <enum-type name="QStyleOptionTab::TabPosition"/>
   <enum-type name="QStyleOptionTabBarBase::StyleOptionType"/>
-  <enum-type name="QStyleOptionTabBarBase::StyleOptionVersion"/>
-  <enum-type name="QStyleOptionTab::StyleOptionVersion"/>
   <enum-type name="QStyleOptionTabWidgetFrame::StyleOptionType"/>
   <enum-type name="QStyleOptionTabWidgetFrame::StyleOptionVersion"/>
   <enum-type name="QStyleOptionTitleBar::StyleOptionType"/>
@@ -374,8 +368,6 @@
   </enum-type>
   <enum-type name="QStyleOptionViewItem::Position"/>
   <enum-type name="QStyleOptionViewItem::StyleOptionType"/>
-  <enum-type name="QStyleOptionViewItem::StyleOptionVersion"/>
-  <enum-type name="QStyleOptionViewItem::StyleOptionVersion"/>
   <enum-type name="QStyleOptionViewItem::ViewItemFeature" flags="QStyleOptionViewItem::ViewItemFeatures"/>
   <enum-type name="QSystemTrayIcon::ActivationReason"/>
   <enum-type name="QSystemTrayIcon::MessageIcon"/>
@@ -418,9 +410,7 @@
   <enum-type name="QDoubleValidator::Notation"/>
   <enum-type name="QGraphicsScene::SceneLayer" flags="QGraphicsScene::SceneLayers"/>
   <enum-type name="QStyleOptionToolBox::SelectedPosition"/>
-  <enum-type name="QStyleOptionToolBox::StyleOptionVersion"/>
   <enum-type name="QStyleOptionToolBox::TabPosition"/>
-  <enum-type name="QStyleOptionViewItem::StyleOptionVersion"/>
   <enum-type name="QTransform::TransformationType"/>
   <enum-type name="QTreeWidgetItem::ChildIndicatorPolicy"/>
   <enum-type name="QWizard::WizardOption" flags="QWizard::WizardOptions"/>
@@ -2668,7 +2658,6 @@
   <object-type name="QMouseEvent" polymorphic-id-expression="%1-&gt;type() == QEvent::MouseButtonDblClick || %1-&gt;type() == QEvent::MouseButtonPress || %1-&gt;type() == QEvent::MouseButtonRelease || %1-&gt;type() == QEvent::MouseMove"/>
   <object-type name="QPaintEvent" polymorphic-id-expression="%1-&gt;type() == QEvent::Paint"/>
   <object-type name="QAccessibleEvent" polymorphic-id-expression="%1-&gt;type() == QEvent::AccessibilityDescription || %1-&gt;type() == QEvent::AccessibilityHelp"/>
-  <object-type name="QAccessibleEvent" remove="all"/>
 
   <object-type name="QAbstractButton"/>
 
