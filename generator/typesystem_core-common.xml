@@ -474,12 +474,16 @@
     <reject-enum-value name="ApplicationDeactivated"/>
   </enum-type>
   <enum-type name="QEventLoop::ProcessEventsFlag" flags="QEventLoop::ProcessEventsFlags"/>
+  <enum-type name="QFile::FileHandleFlag"/>
   <enum-type name="QFile::FileError"/>
   <enum-type name="QFile::MemoryMapFlags" />
   <enum-type name="QFile::Permission" flags="QFile::Permissions"/>
   <enum-type name="QIODevice::OpenModeFlag" flags="QIODevice::OpenMode"/>
   <enum-type name="QLibraryInfo::LibraryLocation"/>
   <enum-type name="QLocale::FormatType"/>
+  <enum-type name="QLocale::QuotationStyle"/>
+  <enum-type name="QLocale::CurrencySymbolFormat"/>
+  <enum-type name="QLocale::Script"/>
   <enum-type name="QLocale::NumberOption" flags="QLocale::NumberOptions"/>
   <enum-type name="QLocale::MeasurementSystem" />
   <enum-type name="QMutex::RecursionMode"/>
@@ -508,6 +512,10 @@
   <enum-type name="QUuid::Variant"/>
   <enum-type name="QUuid::Version"/>
   <enum-type name="Qt::SizeHint" />
+  <enum-type name="Qt::TimerType" />
+  <enum-type name="Qt::CursorMoveStyle" />
+  <enum-type name="Qt::FindChildOption" />
+  <enum-type name="Qt::ScreenOrientation" />
   <enum-type name="Qt::SizeMode" />
   <enum-type name="Qt::WindowFrameSection" />
   <enum-type name="Qt::Axis"/>
@@ -965,6 +973,7 @@
 
   <object-type name="QCryptographicHash"/>
   <object-type name="QLibraryInfo"/>
+  <object-type name="QBasicMutex"/>
   <object-type name="QMutex"/>
   <object-type name="QSemaphore"/>
   <object-type name="QSocketNotifier"/>

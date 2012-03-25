@@ -517,6 +517,8 @@
   <enum-type name="QSwipeGesture::SwipeDirection" />
   <enum-type name="QTouchEvent::DeviceType" />
   
+  <enum-type name="QTextBlockFormat::LineHeightTypes" />
+  
 
   <value-type name="QPixmapCache::Key" />
   <value-type name="QTileRules" />
@@ -4684,6 +4686,7 @@
     <modify-function signature="setMatrixEnabled(bool)" remove="all"/> <!--### Obsolete in 4.3-->
   </object-type>
 
+  <object-type name="QGuiApplication"/>
   <object-type name="QApplication">
     <extra-includes>
       <include file-name="QBasicTimer" location="global"/>

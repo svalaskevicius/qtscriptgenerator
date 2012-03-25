@@ -517,6 +517,8 @@
   <enum-type name="QSwipeGesture::SwipeDirection"/>
   <enum-type name="QTouchEvent::DeviceType"/>
   
+  <enum-type name="QTextBlockFormat::LineHeightTypes"/>
+  
 
   <value-type name="QPixmapCache::Key"/>
   <value-type name="QTileRules"/>
@@ -5157,6 +5159,7 @@
     </modify-function>
   </object-type>
 
+  <object-type name="QGuiApplication"/>
   <object-type name="QApplication">
     <extra-includes>
       <include file-name="QBasicTimer" location="global"/>
