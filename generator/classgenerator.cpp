@@ -616,8 +616,8 @@ static void writeConstructorForwarding(QTextStream &stream,
     stream << "/** signatures:" << endl;
     foreach (const AbstractMetaFunction *fun, functions) {
         stream << " *     " << fun->signature() << endl;
-    } 
-    stream << " */" << endl; 
+    }
+    stream << " */" << endl;
 #endif
 
     if (/*meta_class->isAbstract() ||*/ (functions.size() == 0)) {
@@ -1013,7 +1013,7 @@ static void writeEnumClass(QTextStream &stream, const AbstractMetaClass *meta_cl
            << "{" << endl
            << "    QVariant thisObj = context->thisObject().toVariant();" << endl
            << "    QVariant otherObj = context->argument(0).toVariant();" << endl
-           
+
            << "    return QScriptValue(engine, ((thisObj.userType() == otherObj.userType()) &&" << endl
            << "                                 (thisObj.value<" << qualifiedFlagsName << ">() == otherObj.value<" << qualifiedFlagsName << ">())));" << endl
            << "}" << endl << endl;
@@ -1178,8 +1178,8 @@ static void writeFunctionForwarding(QTextStream &stream, const AbstractMetaClass
     stream << "/** signatures:" << endl;
     foreach (const AbstractMetaFunction *fun, functions) {
         stream << " *     " << fun->signature() << endl;
-    } 
-    stream << " */" << endl; 
+    }
+    stream << " */" << endl;
 #endif
     QMap<int, AbstractMetaFunctionList> argcToFunctions;
     argcToFunctions = createArgcToFunctionsMap(functions);
@@ -1266,7 +1266,7 @@ static void writePrototypeCall(QTextStream &s, const AbstractMetaClass *meta_cla
         s << ")";
 #endif
     s << ";" << endl
-      << "    if (!_q_self) {" << endl 
+      << "    if (!_q_self) {" << endl
       << "        return context->throwError(QScriptContext::TypeError," << endl
       << "            QString::fromLatin1(\"" << meta_class->name()
       << ".%0(): this object is not a " << meta_class->name() << "\")" << endl
@@ -1438,6 +1438,11 @@ void findPrototypeAndStaticFunctions(
         if (func->wasProtected())
             continue;
 #endif
+        if (func->isConstructor())
+            continue;
+        if (func->isDestructor())
+            continue;
+
         if (func->declaringClass() != meta_class)
             continue; // function inherited through prototype
         if (func->isPropertyReader() || func->isPropertyWriter())
