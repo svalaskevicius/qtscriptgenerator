@@ -1451,6 +1451,11 @@ void findPrototypeAndStaticFunctions(
         if (func->wasProtected())
             continue;
 #endif
+        if (func->isConstructor())
+            continue;
+        if (func->isDestructor())
+            continue;
+
         if (func->declaringClass() != meta_class)
             continue; // function inherited through prototype
         if (func->isPropertyReader() || func->isPropertyWriter())
