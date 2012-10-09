@@ -76,7 +76,9 @@ void ShellHeaderGenerator::write(QTextStream &s, const AbstractMetaClass *meta_c
         s << "\"";
     s << endl << endl;
 
-    s << "#include <QtScript/qscriptvalue.h>" << endl << endl;
+    s << "#include <QtScript/qscriptvalue.h>" << endl;
+    s << "#include <__package_shared.h>" << endl;
+    s << endl;
 
     QString packName = meta_class->package().replace(".", "_");
 

@@ -66,13 +66,6 @@ void SetupGenerator::generate()
             continue;
 
         QString packName = pack.key();
-        QStringList components = packName.split(".");
-        if ((components.size() > 2) && (components.at(0) == "com")
-            && (components.at(1) == "trolltech")) {
-            // kill com.trolltech in key
-            components.removeAt(0);
-            components.removeAt(0);
-        }
         packName.replace(".", "_");
 
         {
@@ -250,84 +243,6 @@ void SetupGenerator::generate()
               << "}" << endl;
 
             if (initFile.done())
-                ++m_num_generated_written;
-            ++m_num_generated;
-        }
-
-        {
-            FileOut pluginFile(m_out_dir + "/generated_cpp/" + packName + "/plugin.cpp");
-            QTextStream &s = pluginFile.stream;
-
-            if (FileOut::license)
-                writeQtScriptQtBindingsLicense(s);
-
-            s << "#include <QtScript/QScriptExtensionPlugin>" << endl
-              << "#include <QtScript/QScriptValue>" << endl
-              << "#include <QtScript/QScriptEngine>" << endl << endl;
-
-            // declare the init function
-            s << "void qtscript_initialize_" << packName << "_bindings(QScriptValue &);" << endl << endl;
-
-            // plugin class declaration
-            s << "class " << packName << "_ScriptPlugin : public QScriptExtensionPlugin" << endl
-              << "{" << endl
-              << "public:" << endl
-              << "    QStringList keys() const;" << endl
-              << "    void initialize(const QString &key, QScriptEngine *engine);" << endl
-              << "};" << endl
-              << "" << endl;
-
-            // keys()
-            s << "QStringList " << packName << "_ScriptPlugin::keys() const" << endl
-              << "{" << endl
-              << "    QStringList list;" << endl;
-            {
-                QString key;
-                for (int i = 0; i < components.size(); ++i) {
-                    if (i > 0)
-                        key.append(".");
-                    key.append(components.at(i));
-                    s << "    list << QLatin1String(\"" << key << "\");" << endl;
-                }
-            }
-            s << "    return list;" << endl
-              << "}" << endl;
-
-            // initialize()
-            s << endl
-              << "void " << packName << "_ScriptPlugin::initialize(const QString &key, QScriptEngine *engine)" << endl
-              << "{";
-            {
-                QString key;
-                for (int i = 0; i < components.size(); ++i) {
-                    s << endl << "    ";
-                    if (i > 0) {
-                        key.append(".");
-                        s << "} else ";
-                    }
-                    key.append(components.at(i));
-                    s << "if (key == QLatin1String(\"" << key << "\")) {";
-                }
-            }
-            s << endl << "        QScriptValue extensionObject = ";
-            // ### generalize
-            if (packName == "com.trolltech.qt.phonon")
-                s << "setupPackage(\"phonon\", engine)";
-            else
-                s << "engine->globalObject()";
-            s << ";" << endl;
-
-            s << "        qtscript_initialize_" << packName << "_bindings(extensionObject);" << endl;
-
-            s << "    } else {" << endl
-              << "        Q_ASSERT_X(false, \"" << packName << "::initialize\", qPrintable(key));" << endl
-              << "    }" << endl
-              << "}" << endl << endl;
-
-            s << "Q_EXPORT_STATIC_PLUGIN(" << packName << "_ScriptPlugin)" << endl
-              << "Q_EXPORT_PLUGIN2(qtscript_" << packName.toLower() << ", " << packName << "_ScriptPlugin)" << endl;
-
-            if (pluginFile.done())
                 ++m_num_generated_written;
             ++m_num_generated;
         }

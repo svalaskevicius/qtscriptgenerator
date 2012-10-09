@@ -1497,6 +1497,8 @@ void ClassGenerator::write(QTextStream &stream, const AbstractMetaClass *meta_cl
     stream << "#include <QtCore/QStringList>" << endl;
     stream << "#include <QtCore/QDebug>" << endl;
     stream << "#include <qmetaobject.h>" << endl;
+
+    stream << "#include <__package_shared.h>" << endl;
     stream << endl;
 
     // write class-specific includes
