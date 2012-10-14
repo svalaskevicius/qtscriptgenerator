@@ -45,11 +45,9 @@
 #ifndef QT_NO_CONCURRENT
 
 #include <QtScript/qscriptvalue.h>
-#include <QtConcurrent/qfuture.h>
-#include <QtConcurrent/qfuturewatcher.h>
-#include <QtConcurrent/QFuture>
-#include <QtConcurrent/QFutureWatcher>
-#include <QtConcurrent/QFutureSynchronizer>
+#include <QtCore/QFuture>
+#include <QtCore/QFutureWatcher>
+#include <QtCore/QFutureSynchronizer>
 
 class QtScriptVoidFutureWatcher : public QFutureWatcher<void> {
     Q_OBJECT

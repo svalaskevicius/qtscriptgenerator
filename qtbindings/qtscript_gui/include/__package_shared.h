@@ -13,9 +13,10 @@ Q_DECLARE_METATYPE(QFontMetrics)
 Q_DECLARE_METATYPE(QFontMetricsF)
 
 
+namespace QtMetaTypePrivate {
 
 template <>
-inline void *qMetaTypeCreateHelper<QFontInfo>(const void *t)
+inline void *QMetaTypeFunctionHelper<QFontInfo, true>::Create(const void *t)
 {
     if (t)
         return new QFontInfo(*static_cast<const QFontInfo*>(t));
@@ -23,11 +24,52 @@ inline void *qMetaTypeCreateHelper<QFontInfo>(const void *t)
 }
 
 template <>
-inline void *qMetaTypeConstructHelper<QFontInfo>(void *where, const void *t)
+inline void *QMetaTypeFunctionHelper<QFontInfo, true>::Construct(void *where, const void *t)
 {
     if (t)
         return new (where) QFontInfo(*static_cast<const QFontInfo*>(t));
     return new (where) QFontInfo(QFont());
+}
+
+
+
+
+
+template <>
+inline void *QMetaTypeFunctionHelper<QFontMetrics, true>::Create(const void *t)
+{
+    if (t)
+        return new QFontMetrics(*static_cast<const QFontMetrics*>(t));
+    return new QFontMetrics(QFont());
+}
+
+template <>
+inline void *QMetaTypeFunctionHelper<QFontMetrics, true>::Construct(void *where, const void *t)
+{
+    if (t)
+        return new (where) QFontMetrics(*static_cast<const QFontMetrics*>(t));
+    return new (where) QFontMetrics(QFont());
+}
+
+
+
+
+template <>
+inline void *QMetaTypeFunctionHelper<QFontMetricsF, true>::Create(const void *t)
+{
+    if (t)
+        return new QFontMetricsF(*static_cast<const QFontMetricsF*>(t));
+    return new QFontMetricsF(QFont());
+}
+
+template <>
+inline void *QMetaTypeFunctionHelper<QFontMetricsF, true>::Construct(void *where, const void *t)
+{
+    if (t)
+        return new (where) QFontMetricsF(*static_cast<const QFontMetricsF*>(t));
+    return new (where) QFontMetricsF(QFont());
+}
+
 }
 
 template <>
@@ -43,26 +85,6 @@ inline QFontInfo qscriptvalue_cast<QFontInfo>(const QScriptValue &value)
     return QFontInfo(QFont());
 }
 
-
-
-
-
-template <>
-inline void *qMetaTypeCreateHelper<QFontMetrics>(const void *t)
-{
-    if (t)
-        return new QFontMetrics(*static_cast<const QFontMetrics*>(t));
-    return new QFontMetrics(QFont());
-}
-
-template <>
-inline void *qMetaTypeConstructHelper<QFontMetrics>(void *where, const void *t)
-{
-    if (t)
-        return new (where) QFontMetrics(*static_cast<const QFontMetrics*>(t));
-    return new (where) QFontMetrics(QFont());
-}
-
 template <>
 inline QFontMetrics qscriptvalue_cast<QFontMetrics>(const QScriptValue &value)
 {
@@ -74,25 +96,6 @@ inline QFontMetrics qscriptvalue_cast<QFontMetrics>(const QScriptValue &value)
         return t;
 
     return QFontMetrics(QFont());
-}
-
-
-
-
-template <>
-inline void *qMetaTypeCreateHelper<QFontMetricsF>(const void *t)
-{
-    if (t)
-        return new QFontMetricsF(*static_cast<const QFontMetricsF*>(t));
-    return new QFontMetricsF(QFont());
-}
-
-template <>
-inline void *qMetaTypeConstructHelper<QFontMetricsF>(void *where, const void *t)
-{
-    if (t)
-        return new (where) QFontMetricsF(*static_cast<const QFontMetricsF*>(t));
-    return new (where) QFontMetricsF(QFont());
 }
 
 template <>

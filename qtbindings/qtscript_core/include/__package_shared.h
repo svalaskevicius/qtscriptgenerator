@@ -6,22 +6,31 @@
 #include <QtScript/qscriptvalue.h>
 #include <QtScript/QScriptEngine>
 
+
+#include <Qfile>
+
+
 Q_DECLARE_METATYPE(QEvent)
 
+namespace QtMetaTypePrivate {
+
 template <>
-inline void *qMetaTypeCreateHelper<QEvent>(const void *t)
+inline void *QMetaTypeFunctionHelper<QEvent, true>::Create(const void *t)
 {
     if (t)
         return new QEvent(*static_cast<const QEvent*>(t));
     return new QEvent(QEvent::None);
-}
+};
 
 template <>
-inline void *qMetaTypeConstructHelper<QEvent>(void *where, const void *t)
+inline void *QMetaTypeFunctionHelper<QEvent, true>::Construct(void *where, const void *t)
 {
     if (t)
         return new (where) QEvent(*static_cast<const QEvent*>(t));
     return new (where) QEvent(QEvent::None);
+};
+
+
 }
 
 template <>
