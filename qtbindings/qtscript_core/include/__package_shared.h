@@ -7,7 +7,7 @@
 #include <QtScript/QScriptEngine>
 
 
-#include <Qfile>
+#include <QFile>
 
 
 Q_DECLARE_METATYPE(QEvent)
