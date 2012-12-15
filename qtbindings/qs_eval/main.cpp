@@ -136,11 +136,7 @@ static QScriptValue importExtension(QScriptContext *context, QScriptEngine *engi
 
 int main(int argc, char *argv[])
 {
-    QApplication *app;
-    if (argc >= 2 && !qstrcmp(argv[1], "-tty"))
-        app = new QApplication(argc, argv, QApplication::Tty);
-    else
-        app = new QApplication(argc, argv);
+    QApplication *app = new QApplication(argc, argv);
 
     QDir dir(QApplication::applicationDirPath());
     if (dir.dirName() == QLatin1String("debug") || dir.dirName() == QLatin1String("release"))
