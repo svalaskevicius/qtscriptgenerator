@@ -5150,12 +5150,6 @@
     <modify-function signature="font(const char*)">
         <remove/>
     </modify-function>
-    <modify-function signature="setFont(QFont,const char*)">
-        <access modifier="private"/>
-        <modify-argument index="2">
-            <remove-default-expression/>
-        </modify-argument>
-    </modify-function>
 
     <modify-function signature="palette(const char*)">
         <remove/>
